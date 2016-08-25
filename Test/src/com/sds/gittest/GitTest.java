@@ -6,7 +6,7 @@ public class GitTest {
 		System.out.println("hello");
 		System.out.println("임하진이수정");
 		System.out.println("임하진이또수정");
-		
+		System.out.println("원구횽");
 	}
 
 }
