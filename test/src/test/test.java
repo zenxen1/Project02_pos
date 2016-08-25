@@ -6,5 +6,6 @@ public class test {
 		System.out.println("せせせせ");
 		System.out.println("せせせせ");
 		System.out.println("失呪せせせ");
+		System.out.println("神馬推");
 	}
 }
