@@ -1,0 +1,200 @@
+--테이블 스페이스 생성
+create tablespace posproject datafile 'C:\oraclexe\app\oracle\oradata\XE\posproject.dbf' size 10m;
+
+--user 생성
+create user posman
+identified by posman
+default tablespace posproject
+quota unlimited on posproject;
+
+--접속권한, 테이블에 권한, 시퀀스 생성 권한 부여
+grant create session,
+create table,
+create sequence to posman;
+
+
+
+--posman으로 접속
+conn posman/posman
+
+--시퀀스 생성
+create sequence seq_deal
+start with 1
+increment by 1;
+
+create sequence seq_dealdetail
+start with 1
+increment by 1;
+
+create sequence seq_company
+start with 1
+increment by 1;
+
+create sequence seq_product
+start with 1
+increment by 1;
+
+create sequence seq_topcategory
+start with 1
+increment by 1;
+
+create sequence seq_subcategory
+start with 1
+increment by 1;
+
+create sequence seq_sale
+start with 1
+increment by 1;
+
+create sequence seq_saledetail
+start with 1
+increment by 1;
+
+create sequence seq_inventory
+start with 1
+increment by 1;
+
+create sequence seq_user
+start with 1
+increment by 1;
+
+--table 생성
+create table deal(
+deal_id number primary key
+,company_id number
+,deal_money number default 0
+,paid_money number default 0
+,income_date varchar(50)
+,deal_date varchar(50)
+,regdate date default sysdate
+);
+
+create table dealdetail(
+dealdetail_id number primary key
+,deal_id number
+,product_id number
+,dealdetail_count number default 0
+,regdate date default sysdate
+);
+
+create table company(
+company_id number primary key
+,company_name varchar(50)
+,company_phone varchar(50)
+,regdate date default sysdate
+);
+
+create table product(
+product_id number primary key
+,name varchar(50)
+,barcode number default 0
+,prime_cost number default 0
+,selling_price number default 0
+,manufacturer varchar(50)
+,expiration_date varchar(50)
+,subcategory_id number
+,regdate date default sysdate
+);
+
+create table topcategory(
+topcategory_id number primary key
+,topgroup varchar(50)
+,regdate date default sysdate
+);
+
+create table subcategory(
+subcategory_id number primary key
+,subgroup varchar(50)
+,topcategory_id number
+,regdate date default sysdate
+);
+
+create table sale(
+sale_id number primary key
+,total_money number default 0
+,sale_date varchar(50)
+,sale_time varchar(50)
+,user_id number
+,regdate date default sysdate
+);
+
+create table saledetail(
+saledetail_id number primary key
+,sale_id number
+,product_id number
+,sale_count number default 0
+,regdate date default sysdate
+);
+
+create table inventory(
+inventory_id number primary key
+,product_id number
+,inventory_count number default 0
+,regdate date default sysdate
+);
+
+create table pos_user(
+user_id number primary key
+,user_acount varchar(50)
+,user_password varchar(50)
+,user_name varchar(50)
+,user_phone varchar(50)
+,regdate date default sysdate
+);
+
+commit;
+
+
+
+
+--기타 테이블 조회
+select table_name from user_tables;
+
+--기타 테이블 삭제
+drop table deal;
+drop table dealdetail;
+drop table company;
+drop table product;
+drop table topcategory;
+drop table subcategory;
+drop table sale;
+drop table saledetail;
+drop table inventory;
+drop table pos_user;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
