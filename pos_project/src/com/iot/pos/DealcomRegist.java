@@ -29,8 +29,8 @@ public class DealcomRegist extends JFrame implements ActionListener {
 	JTextField tf_company_name, tf_company_phone;
 	JTable table;
 	JScrollPane scroll;
-	JButton bt_regist, bt_cancel, bt_delete;
-	RegistModel model;
+	JButton bt_regist, bt_delete;
+	DealcomRegistModel model;
 
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String user = "posman";
@@ -54,11 +54,10 @@ public class DealcomRegist extends JFrame implements ActionListener {
 		p_west = new JPanel();
 
 		bt_regist = new JButton("등록");
-		bt_cancel = new JButton("취소");
 		bt_delete = new JButton("삭제");
 
 		connect();
-		table = new JTable(model = new RegistModel(con));
+		table = new JTable(model = new DealcomRegistModel(con));
 		scroll = new JScrollPane(table);
 
 		table.addMouseListener(new MouseAdapter() {
@@ -82,7 +81,6 @@ public class DealcomRegist extends JFrame implements ActionListener {
 		p_west.add(la_company_phone);
 		p_west.add(tf_company_phone);
 		p_west.add(bt_regist);
-		p_west.add(bt_cancel);
 		p_west.add(bt_delete);
 		add(p_north, BorderLayout.NORTH);
 		add(p_west, BorderLayout.WEST);
