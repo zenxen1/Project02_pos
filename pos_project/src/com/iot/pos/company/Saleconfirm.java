@@ -4,9 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -18,6 +24,14 @@ public class Saleconfirm extends JFrame{
 	JTable table;
 	JScrollPane scroll;
 	SaleconfirmModel model;
+	
+	String url = "jdbc:oracle:thin:@localhost:1521:XE";
+	String user = "posman";
+	String password = "posman";
+	
+	Connection con;
+	
+	
 	
 	public Saleconfirm() {
 		p_north = new JPanel();
@@ -34,7 +48,8 @@ public class Saleconfirm extends JFrame{
 		ch.add("월매출");
 		ch.add("년매출");
 		
-		table = new JTable(model = new SaleconfirmModel());
+		connect();
+		table = new JTable(model = new SaleconfirmModel(con));
 		scroll = new JScrollPane(table);
 		
 		
@@ -60,11 +75,38 @@ public class Saleconfirm extends JFrame{
 		add(p_east,BorderLayout.EAST);
 		add(p_west,BorderLayout.WEST);
 		
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				// db닫기!!
+				if (con != null) {
+					try {
+						con.close();
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
+				// 프로세스 죽이기!
+				System.exit(0);
+			}
+		});
+		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(1024,960);
 		setResizable(false);
 		setVisible(true);
 			
+	}
+	public void connect(){
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con = DriverManager.getConnection(url, user, password);
+			setTitle("접속성공");
+			if(con == null){
+				JOptionPane.showMessageDialog(this, "접속실패");
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 
