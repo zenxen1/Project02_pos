@@ -85,6 +85,7 @@ public class ManagementWindow extends JFrame implements ActionListener{
 		
 		bt.addActionListener(this);
 		
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(1024, 768);
 		setVisible(true);
 		

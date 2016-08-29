@@ -13,7 +13,11 @@ import javax.swing.JTable;
 public class SalesManagement extends JFrame{
 
 	
+<<<<<<< HEAD
+	JPanel p_north, p_south, p_west, p_east;
+=======
 	JPanel p_north, p_south;
+>>>>>>> efe53f73f301d329226ad95994378e6d5ce38a28
 	JLabel la_north;
 	Choice ch_menu;
 	SalesTable model;
@@ -24,6 +28,11 @@ public class SalesManagement extends JFrame{
 	public SalesManagement() {
 		p_north = new JPanel();
 		p_south = new JPanel();
+<<<<<<< HEAD
+		p_west = new JPanel();
+		p_east = new JPanel();
+=======
+>>>>>>> efe53f73f301d329226ad95994378e6d5ce38a28
 		la_north = new JLabel("        ");
 		ch_menu = new Choice();
 		model = new SalesTable();
@@ -45,6 +54,11 @@ public class SalesManagement extends JFrame{
 		add(p_north, BorderLayout.NORTH);
 		add(scroll, BorderLayout.CENTER);
 		add(p_south, BorderLayout.SOUTH);
+<<<<<<< HEAD
+		add(p_east, BorderLayout.EAST);
+		add(p_west, BorderLayout.WEST);
+=======
+>>>>>>> efe53f73f301d329226ad95994378e6d5ce38a28
 		
 		setSize(1024, 768);
 		setVisible(true);
