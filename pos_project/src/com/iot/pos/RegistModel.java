@@ -62,6 +62,27 @@ public class RegistModel extends AbstractTableModel {
 		
 	}
 	
+	public int deleteCompany(int company_id){
+		int result =0;
+		String sql = "delete from company where company_id ="+company_id;
+		try {
+			pstmt = con.prepareStatement(sql);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			if(pstmt != null){
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return result;
+	}
+	
 	public String getColumnName(int col) {
 		
 		return columTitle[col];

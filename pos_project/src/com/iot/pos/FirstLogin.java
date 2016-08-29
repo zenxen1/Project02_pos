@@ -75,6 +75,7 @@ public class FirstLogin extends JFrame implements ActionListener{
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(1024,960);
+		setResizable(false);
 		setVisible(true);
 	}
 	
