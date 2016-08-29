@@ -1,4 +1,4 @@
-package com.iot.pos;
+package com.iot.pos.company;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

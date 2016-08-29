@@ -1,4 +1,4 @@
-package com.iot.pos;
+package com.iot.pos.company;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -107,6 +107,7 @@ public class DealcomRegist extends JFrame implements ActionListener {
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(1024, 960);
+		setResizable(false);
 		setVisible(true);
 
 	}
