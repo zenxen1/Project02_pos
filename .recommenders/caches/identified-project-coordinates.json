@@ -1,5 +1,5 @@
 <<<<<<< HEAD
-[[{"location":"C:\\Java\\jre1.8.0_101","type":"JRE","hints":{"EXECUTION_ENVIRONMENT":"JavaSE-1.8"}},"jre:jre:1.8.0"],[{"location":"C:\\Project02_pos\\pos_project","type":"PROJECT","hints":{"PROJECT_NAME":"pos_project"}},"ABSENT"]]
+[[{"location":"C:\\Java\\jre1.8.0_101","type":"JRE","hints":{"EXECUTION_ENVIRONMENT":"JavaSE-1.8"}},"jre:jre:1.8.0"]]
 =======
-[[{"location":"C:\\Project02_pos\\pos_project","type":"PROJECT","hints":{"PROJECT_NAME":"pos_project"}},"ABSENT"],[{"location":"C:\\Java\\jre1.8.0_101","type":"JRE","hints":{"EXECUTION_ENVIRONMENT":"JavaSE-1.8"}},"jre:jre:1.8.0"]]
->>>>>>> 7637bcc95da3e67838ff942dad0e9d9b615f9cfe
+[[{"location":"C:\\Program Files\\Java\\jre1.8.0_101","type":"JRE","hints":{"EXECUTION_ENVIRONMENT":"JavaSE-1.8"}},"jre:jre:1.8.0"]]
+>>>>>>> 618540ae692a52256787290c95e673cd1d481edc

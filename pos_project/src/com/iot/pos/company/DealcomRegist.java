@@ -23,7 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-public class DealcomRegist extends JFrame implements ActionListener {
+public class DealcomRegist extends JPanel implements ActionListener {
 	JPanel p_west, p_north;
 	JLabel la_title, la_company_name, la_company_phone;
 	JTextField tf_company_name, tf_company_phone;
@@ -87,6 +87,7 @@ public class DealcomRegist extends JFrame implements ActionListener {
 
 		add(scroll);
 
+		/*
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				// db닫기!!
@@ -101,13 +102,13 @@ public class DealcomRegist extends JFrame implements ActionListener {
 				System.exit(0);
 			}
 		});
-
+*/
 		bt_regist.addActionListener(this);
 		bt_delete.addActionListener(this);
 
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(1024, 960);
-		setResizable(false);
+		//setDefaultCloseOperation(EXIT_ON_CLOSE);
+		//setSize(1024, 960);
+		//setResizable(false);
 		setVisible(true);
 
 	}
@@ -115,12 +116,12 @@ public class DealcomRegist extends JFrame implements ActionListener {
 	public void connect() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			this.setTitle("드라이버 로드 성공");
+		//	this.setTitle("드라이버 로드 성공");
 			con = DriverManager.getConnection(url, user, password);
 			if (con == null) {
 				JOptionPane.showMessageDialog(this, "접속실패");
 			}
-			this.setTitle("접속성공");
+			//this.setTitle("접속성공");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
