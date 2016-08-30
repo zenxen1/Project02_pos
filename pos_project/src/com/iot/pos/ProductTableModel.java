@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
-public class ProductModel extends AbstractTableModel {
+public class ProductTableModel extends AbstractTableModel {
 	ArrayList<String[]> list = new ArrayList<String[]>();
 	
 	String[] columnTitle={"상품코드","품명","단가","판매가","제조사","유통기한"};
