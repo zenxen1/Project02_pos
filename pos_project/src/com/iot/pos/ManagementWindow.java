@@ -28,7 +28,7 @@ public class ManagementWindow extends JFrame implements ActionListener{
 			"거래내역",
 			"상품정보",
 			"직원관리",
-			"거래내역"
+			"재고관리"
 			};
 	
 	public ManagementWindow() {
@@ -62,9 +62,9 @@ public class ManagementWindow extends JFrame implements ActionListener{
 			bt_menu[i].addActionListener(this);			
 		}
 	
-		p_row1.add(bt_menu[0]);
-		p_row1.add(bt_menu[1]);
-		p_row1.add(bt_menu[2]);
+		p_row1.add(bt_menu[3]);
+		p_row1.add(bt_menu[4]);
+		p_row1.add(bt_menu[5]);
 		p_center.add(p_row1);
 		
 		p_row1.setPreferredSize(new Dimension(800, 250));
