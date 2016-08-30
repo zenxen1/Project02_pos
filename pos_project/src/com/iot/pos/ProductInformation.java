@@ -2,6 +2,7 @@ package com.iot.pos;
 
 import java.awt.BorderLayout;
 import java.awt.Choice;
+import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JButton;
@@ -12,7 +13,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 public class ProductInformation extends JFrame {
-	JPanel p_north, p_center;
+	JPanel p_north, p_center,p_west, p_east, p_south;
 	Choice ch;
 	JTextField txt;
 	JButton bt_search, bt_regist;
@@ -21,13 +22,22 @@ public class ProductInformation extends JFrame {
 	ProductModel model;
 	
 	public ProductInformation() {
+		// 여백
+		p_west = new JPanel();
+		p_east = new JPanel();
+		p_south = new JPanel();
+		
+		// 북쪽 디자인
 		p_north = new JPanel();
 		ch = new Choice();
 		txt = new JTextField(15);
 		bt_search = new JButton("검색");
 		bt_regist = new JButton("등록");
-		table = new JTable(model= new ProductModel());
 		
+		p_center = new JPanel();
+		model=new ProductModel();
+		table = new JTable(model);
+		scroll = new JScrollPane(table);
 		
 		ch.add("분류");
 		
@@ -37,12 +47,12 @@ public class ProductInformation extends JFrame {
 		p_north.add(bt_search);
 		p_north.add(bt_regist);
 		
-		p_center = new JPanel();
+		scroll.add(p_center);
 		
-		p_center.add(table);
-		
-		scroll = new JScrollPane(p_center);
-		
+		add(p_west, BorderLayout.WEST);
+		add(p_east, BorderLayout.EAST);
+		add(p_east, BorderLayout.SOUTH);
+
 		add(p_north, BorderLayout.NORTH);
 		add(scroll);
 		

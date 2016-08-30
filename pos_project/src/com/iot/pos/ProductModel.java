@@ -1,29 +1,28 @@
 package com.iot.pos;
 
+import java.util.ArrayList;
+
 import javax.swing.table.AbstractTableModel;
 
 public class ProductModel extends AbstractTableModel {
-	String[] columnTitle={"상품코드","품명","단가","판매가","제조사","유통기한"};
+	ArrayList<String[]> list = new ArrayList<String[]>();
 	
-	public ProductModel(){
+	String[] columnTitle={"상품코드","품명","단가","판매가","제조사","유통기한"};
 		
+		
+	public int getColumnCount() {
+		return columnTitle.length;
 	}
 	
 	public String getColumnName(int col) {
-		col = 6;
 		return columnTitle[col];
 	}
 
-	public int getColumnCount() {
-		return 6;
-	}
-
 	public int getRowCount() {
-		return 8;
+		return list.size();
 	}
 
-	public Object getValueAt(int rowIndex, int columnIndex) {
-
-		return null;
+	public Object getValueAt(int row, int col) {
+		return list.get(row)[col];
 	}
 }
