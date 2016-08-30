@@ -30,13 +30,13 @@ public class DealcomRegist extends JPanel implements ActionListener {
 	JButton bt_regist, bt_delete;
 	DealcomRegistModel model;
 
-	
+	/*
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String user = "posman";
 	String password = "posman";
-	
+	*/
 
-	Connection con;
+	Connection con = PosMain.getConnection();
 	PreparedStatement pstmt;
 	ResultSet rs;
 
@@ -56,7 +56,7 @@ public class DealcomRegist extends JPanel implements ActionListener {
 		bt_regist = new JButton("등록");
 		bt_delete = new JButton("삭제");
 
-		connect();
+		//connect();
 		table = new JTable(model = new DealcomRegistModel(con));
 		scroll = new JScrollPane(table);
 
@@ -118,7 +118,7 @@ public class DealcomRegist extends JPanel implements ActionListener {
 		//setVisible(true);
 
 	}
-
+	/*
 	public void connect() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -136,9 +136,9 @@ public class DealcomRegist extends JPanel implements ActionListener {
 		}
 
 	}
-
+*/
 	public void registCompany() {
-		//Connection con = PosMain.getConnection();
+		
 		String company_name = tf_company_name.getText();
 		String company_phone = tf_company_phone.getText();
 
