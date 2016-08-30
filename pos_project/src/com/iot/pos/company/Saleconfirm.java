@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
@@ -17,7 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-public class Saleconfirm extends JFrame{
+public class Saleconfirm extends JPanel{
 	JPanel p_north,p_south,p_west,p_east,p_center,p_graph;
 	JLabel la_north;
 	Choice ch;
@@ -52,12 +53,14 @@ public class Saleconfirm extends JFrame{
 		table = new JTable(model = new SaleconfirmModel(con));
 		scroll = new JScrollPane(table);
 		
+		p_center.setLayout(new FlowLayout());
 		
 		la_north.setPreferredSize(new Dimension(800, 100));
-		p_south.setPreferredSize(new Dimension(1024, 50));
-		scroll.setPreferredSize(new Dimension(900, 400));
-		p_graph.setPreferredSize(new Dimension(900, 400));
+		p_south.setPreferredSize(new Dimension(900, 50));
+		scroll.setPreferredSize(new Dimension(900, 350));
+		p_graph.setPreferredSize(new Dimension(900, 350));
 		ch.setPreferredSize(new Dimension(80, 60));
+		p_center.setPreferredSize(new Dimension(1000, 1000));
 		
 		p_north.add(la_north);
 		p_north.add(ch);
@@ -74,7 +77,7 @@ public class Saleconfirm extends JFrame{
 		add(p_south,BorderLayout.SOUTH);
 		add(p_east,BorderLayout.EAST);
 		add(p_west,BorderLayout.WEST);
-		
+		/*
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				// db摧扁!!
@@ -89,18 +92,18 @@ public class Saleconfirm extends JFrame{
 				System.exit(0);
 			}
 		});
-		
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(1024,960);
-		setResizable(false);
-		setVisible(true);
+		*/
+		//setDefaultCloseOperation(EXIT_ON_CLOSE);
+		//setSize(1024,960);
+		//setResizable(false);
+		//setVisible(true);
 			
 	}
 	public void connect(){
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			con = DriverManager.getConnection(url, user, password);
-			setTitle("立加己傍");
+			//setTitle("立加己傍");
 			if(con == null){
 				JOptionPane.showMessageDialog(this, "立加角菩");
 			}
@@ -109,9 +112,10 @@ public class Saleconfirm extends JFrame{
 		}
 	}
 	
-
+	/*
 	public static void main(String[] args) {
 		new Saleconfirm();
 	}
+	*/
 
 }

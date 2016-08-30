@@ -22,7 +22,7 @@ public class SaleconfirmModel extends AbstractTableModel{
 	}
 	
 	public void selectAll(){
-		String sql = "select * from sale";
+		String sql = "select sale_id,total_money,sale_date,sale_time, p.user_name as name from sale s,pos_user p where s.user_id = p.user_id";
 		try {
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -33,7 +33,7 @@ public class SaleconfirmModel extends AbstractTableModel{
 				record[1] = Integer.toString(rs.getInt("total_money"));
 				record[2] = rs.getString("sale_date");
 				record[3] = rs.getString("sale_time");
-				record[4] = Integer.toString(rs.getInt("user_id"));
+				record[4] = rs.getString(("name"));
 				
 				data.add(record);
 			}
