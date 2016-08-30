@@ -1,13 +1,12 @@
 package com.iot.pos.company;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,7 +14,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -32,9 +30,11 @@ public class DealcomRegist extends JPanel implements ActionListener {
 	JButton bt_regist, bt_delete;
 	DealcomRegistModel model;
 
+	
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String user = "posman";
 	String password = "posman";
+	
 
 	Connection con;
 	PreparedStatement pstmt;
@@ -72,8 +72,14 @@ public class DealcomRegist extends JPanel implements ActionListener {
 				tf_company_phone.setText((String)table.getValueAt(row, 2));
 			}
 		});
-
+		
+		p_north.setPreferredSize(new Dimension(1000, 50));
 		p_west.setPreferredSize(new Dimension(300, 960));
+		scroll.setPreferredSize(new Dimension(700, 960));
+		
+		p_west.setBackground(Color.YELLOW);
+		p_north.setBackground(Color.BLUE);
+		
 
 		p_north.add(la_title);
 		p_west.add(la_company_name);
@@ -82,9 +88,9 @@ public class DealcomRegist extends JPanel implements ActionListener {
 		p_west.add(tf_company_phone);
 		p_west.add(bt_regist);
 		p_west.add(bt_delete);
+		
 		add(p_north, BorderLayout.NORTH);
 		add(p_west, BorderLayout.WEST);
-
 		add(scroll);
 
 		/*
@@ -109,7 +115,7 @@ public class DealcomRegist extends JPanel implements ActionListener {
 		//setDefaultCloseOperation(EXIT_ON_CLOSE);
 		//setSize(1024, 960);
 		//setResizable(false);
-		setVisible(true);
+		//setVisible(true);
 
 	}
 
@@ -132,6 +138,7 @@ public class DealcomRegist extends JPanel implements ActionListener {
 	}
 
 	public void registCompany() {
+		//Connection con = PosMain.getConnection();
 		String company_name = tf_company_name.getText();
 		String company_phone = tf_company_phone.getText();
 
@@ -199,9 +206,11 @@ public class DealcomRegist extends JPanel implements ActionListener {
 			}
 		}
 	}
-
+	
+	/*
 	public static void main(String[] args) {
 		new DealcomRegist();
 	}
+	*/
 
 }

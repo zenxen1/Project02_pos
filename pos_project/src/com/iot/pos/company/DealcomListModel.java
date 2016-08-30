@@ -14,19 +14,19 @@ public class DealcomListModel extends AbstractTableModel{
 	
 	ArrayList<String[]>data = new ArrayList<String[]>();
 	
-	Connection con;
+	//Connection con;
 	PreparedStatement pstmt;
 	ResultSet rs;
 	
-	public DealcomListModel(Connection con) {
-		this.con = con;
+	public DealcomListModel() {
+		//this.con = con;
 		
 		selectAll();
 	}
 	
 	public void selectAll(){
 		try {
-		
+			Connection con = PosMain.getConnection();
 			String sql = "select * from deal order by deal_id";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
