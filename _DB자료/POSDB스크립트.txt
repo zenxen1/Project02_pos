@@ -162,12 +162,15 @@ drop table saledetail;
 drop table inventory;
 drop table pos_user;
 
+--deal table에 항목 추가
+
+insert into DEAL (DEAL_ID, COMPANY_ID, DEAL_MONEY, PAID_MONEY, INCOME_DATE, DEAL_DATE) 
+values (seq_deal.nextval, 1,9000,6770,'10/24','11/30');
 
 
-
-
-
-
+--sale 테이블에 항목 추가
+insert into SALE (SALE_ID, TOTAL_MONEY, SALE_DATE, SALE_TIME, USER_ID)
+values (seq_sale.nextval,30000,'6/7','4:54',3); 
 
 
 
