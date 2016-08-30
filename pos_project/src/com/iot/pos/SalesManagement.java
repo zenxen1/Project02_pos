@@ -3,6 +3,9 @@ package com.iot.pos;
 import java.awt.BorderLayout;
 import java.awt.Choice;
 import java.awt.Dimension;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,12 +19,21 @@ public class SalesManagement extends JFrame{
 	JPanel p_north, p_south, p_west, p_east;
 	JLabel la_north;
 	Choice ch_menu, ch_topcategory, ch_subcategory;
-	SalesTable model;
+	SalesTableModel model;
 	JTable table;
 	JScrollPane scroll;
 	
+	String driver = "oracle.jdbc.driver.OracleDriver";
+	
+	String url = "jdbc:oracle:thin:@localhost:1521:XE";
+	String user = "posman";
+	String password = "posman";
+	
+	public static Connection con;
+	
 	
 	public SalesManagement() {
+		connectDB();
 		p_north = new JPanel();
 		p_south = new JPanel();
 		p_west = new JPanel();
@@ -30,7 +42,7 @@ public class SalesManagement extends JFrame{
 		ch_menu = new Choice();
 		ch_topcategory = new Choice();
 		ch_subcategory = new Choice();
-		model = new SalesTable();
+		model = new SalesTableModel();
 		table = new JTable(model);
 		scroll = new JScrollPane(table);
 		
@@ -58,11 +70,29 @@ public class SalesManagement extends JFrame{
 		add(p_east, BorderLayout.EAST);
 		add(p_west, BorderLayout.WEST);
 
-		
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(1024, 768);
 		setVisible(true);
 		
 	}
+	
+	//연결
+	public void connectDB(){
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+			if(con != null){
+				setTitle("online");
+			}else{
+				setTitle("접속실패");
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public static void main(String[] args) {
 		new SalesManagement();

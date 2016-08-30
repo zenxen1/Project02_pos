@@ -172,7 +172,11 @@ values (seq_deal.nextval, 1,9000,6770,'10/24','11/30');
 insert into SALE (SALE_ID, TOTAL_MONEY, SALE_DATE, SALE_TIME, USER_ID)
 values (seq_sale.nextval,30000,'6/7','4:54',3); 
 
+insert into SALE (SALE_ID, TOTAL_MONEY, SALE_DATE, SALE_TIME, USER_ID)
+values (seq_sale.nextval, 40000, '6/17','2:50',3);
 
+insert into SALE(Sale_ID, TOTAL_MONEY, SALE_DATE, SALE_TIME, USER_ID)
+values (seq_sale.nextval, 68000, '6/17','8:59',2);
 
 
 

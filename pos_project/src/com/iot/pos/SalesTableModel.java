@@ -1,19 +1,22 @@
 package com.iot.pos;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
-public class SalesTable extends AbstractTableModel{
-	String[] column = {"번호","날자 ","매출","금액"};
+public class SalesTableModel extends AbstractTableModel{
+	String[] column = {"번호","날짜 ","매출","금액","담당자"};
 	ArrayList<String[]> data = new ArrayList<String[]>();
 	
 	
-	
-	public void createList(int number, String date, int sales, int sum){
-		String[] str = {Integer.toString(number), date, Integer.toString(sales), Integer.toString(sum)};
-		data.add(str);
+	public SalesTableModel() {
+		selectSale();
 	}
+	
 	
 	
 	public String getColumnName(int col) {
@@ -32,6 +35,37 @@ public class SalesTable extends AbstractTableModel{
 		return data.get(arg0)[arg1];
 	}
 
-	
+	public void selectSale(){
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
 	
 }

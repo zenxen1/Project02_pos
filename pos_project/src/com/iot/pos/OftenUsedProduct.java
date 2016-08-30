@@ -20,7 +20,7 @@ public class OftenUsedProduct extends JFrame implements ActionListener{
 	JButton bt_search, bt_regist;
 	JPanel p_north, p_center, p_west, p_east, p_south;
 
-	TableInfo info;
+	OftenUsedTableModel info;
 	JTable t_info;
 	JScrollPane scroll;
 
@@ -31,7 +31,7 @@ public class OftenUsedProduct extends JFrame implements ActionListener{
 		txt_search = new JTextField(25);
 		bt_search = new JButton("검색");
 		bt_regist = new JButton("등록");
-		info = new TableInfo();
+		info = new OftenUsedTableModel();
 		t_info = new JTable(info);
 		scroll = new JScrollPane(t_info);
 		p_north = new JPanel();
