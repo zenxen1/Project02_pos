@@ -1,1 +1,9 @@
+<<<<<<< HEAD
 [[{"location":"C:\\Program Files\\Java\\jre1.8.0_101","type":"JRE","hints":{"EXECUTION_ENVIRONMENT":"JavaSE-1.8"}},"jre:jre:1.8.0"],[{"location":"C:\\project2\\pos_project","type":"PROJECT","hints":{"PROJECT_NAME":"pos_project"}},"ABSENT"]]
+=======
+<<<<<<< HEAD
+[[{"location":"C:\\Java\\jre1.8.0_101","type":"JRE","hints":{"EXECUTION_ENVIRONMENT":"JavaSE-1.8"}},"jre:jre:1.8.0"],[{"location":"C:\\Project02_pos\\pos_project","type":"PROJECT","hints":{"PROJECT_NAME":"pos_project"}},"ABSENT"]]
+=======
+[[{"location":"C:\\Project02_pos\\pos_project","type":"PROJECT","hints":{"PROJECT_NAME":"pos_project"}},"ABSENT"],[{"location":"C:\\Java\\jre1.8.0_101","type":"JRE","hints":{"EXECUTION_ENVIRONMENT":"JavaSE-1.8"}},"jre:jre:1.8.0"]]
+>>>>>>> 7637bcc95da3e67838ff942dad0e9d9b615f9cfe
+>>>>>>> 418f6adcb326691c37b5222bd608fa81271ef93e
