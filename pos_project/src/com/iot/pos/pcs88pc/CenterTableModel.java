@@ -1,4 +1,4 @@
-package com.iot.pos;
+package com.iot.pos.pcs88pc;
 
 import javax.swing.table.AbstractTableModel;
 

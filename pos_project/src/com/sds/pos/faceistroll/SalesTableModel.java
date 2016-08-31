@@ -1,4 +1,4 @@
-package com.iot.pos;
+package com.sds.pos.faceistroll;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

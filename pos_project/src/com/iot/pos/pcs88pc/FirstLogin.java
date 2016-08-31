@@ -1,4 +1,4 @@
-package com.iot.pos;
+package com.iot.pos.pcs88pc;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

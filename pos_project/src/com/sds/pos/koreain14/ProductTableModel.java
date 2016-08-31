@@ -1,33 +1,28 @@
-package com.iot.pos;
+package com.sds.pos.koreain14;
 
 import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
-public class EmployeeTableModel extends AbstractTableModel {
+public class ProductTableModel extends AbstractTableModel {
 	ArrayList<String[]> list = new ArrayList<String[]>();
 	
-	String[] columnTitle ={"이름","연락처","계정"};
-	
-	@Override
+	String[] columnTitle={"상품코드","품명","단가","판매가","제조사","유통기한"};
+		
+		
 	public int getColumnCount() {
 		return columnTitle.length;
 	}
 	
-	@Override
 	public String getColumnName(int col) {
 		return columnTitle[col];
 	}
 
-	@Override
 	public int getRowCount() {
 		return list.size();
 	}
 
-	@Override
 	public Object getValueAt(int row, int col) {
 		return list.get(row)[col];
 	}
-	
-
 }

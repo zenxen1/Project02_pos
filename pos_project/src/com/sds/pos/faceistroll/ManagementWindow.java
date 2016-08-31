@@ -1,4 +1,4 @@
-package com.iot.pos;
+package com.sds.pos.faceistroll;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

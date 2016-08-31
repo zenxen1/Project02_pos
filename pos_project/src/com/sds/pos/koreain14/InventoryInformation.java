@@ -1,8 +1,7 @@
-package com.iot.pos;
+package com.sds.pos.koreain14;
 
 import java.awt.BorderLayout;
 import java.awt.Choice;
-import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JButton;
@@ -12,16 +11,16 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-public class ProductInformation extends JFrame {
+public class InventoryInformation extends JFrame {
 	JPanel p_north, p_center,p_west, p_east, p_south;
 	Choice ch;
 	JTextField txt;
 	JButton bt_search, bt_regist;
 	JTable table;
 	JScrollPane scroll;
-	ProductTableModel model;
+	InventoryTableModel model;
 	
-	public ProductInformation() {
+	public InventoryInformation() {
 		// 여백
 		p_west = new JPanel();
 		p_east = new JPanel();
@@ -35,7 +34,7 @@ public class ProductInformation extends JFrame {
 		bt_regist = new JButton("등록");
 		
 		p_center = new JPanel();
-		model=new ProductTableModel();
+		model=new InventoryTableModel();
 		table = new JTable(model);
 		scroll = new JScrollPane(table);
 		
@@ -62,7 +61,7 @@ public class ProductInformation extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		new ProductInformation();
+		new InventoryInformation();
 	}
 	
 }
