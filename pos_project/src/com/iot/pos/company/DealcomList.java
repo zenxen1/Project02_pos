@@ -110,4 +110,5 @@ public class DealcomList extends JPanel {
 		new DealcomList();
 	}
 	*/
+	
 }

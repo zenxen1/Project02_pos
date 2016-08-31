@@ -30,7 +30,7 @@ public class PosMain extends JFrame implements ActionListener{
 	String password= "posman";
 	
 	private static Connection con;
-		
+	DealcomList deal;
 	
 	public PosMain() {
 		connectDB();
@@ -39,16 +39,22 @@ public class PosMain extends JFrame implements ActionListener{
 		
 		p_north = new JPanel();
 		p_north.setLayout(new GridLayout(1, menu.length));
+		deal = new DealcomList();
 		
 		for(int i=0;i<menu.length;i++){
 			menu[i] = new JButton(menuTitle[i]);
 			p_north.add(menu[i]);
 			menu[i].addActionListener(this);
 		}
+		deal.bt_regist.addActionListener(this);
 		
 		content[0] = new Saleconfirm();
 		content[1] = new DealcomRegist();
-		content[2] = new DealcomList();
+		content[2] = deal;
+		
+		
+		
+		
 		
 		center = new JPanel();
 		
@@ -123,11 +129,16 @@ public class PosMain extends JFrame implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e) {
 		Object obj=e.getSource();
-		
+		//System.out.println(obj);
 		for(int i=0;i<menu.length;i++){
 			if(obj==menu[i]){
 				showContent(i);
 			}
+		}
+		
+		if(obj.equals(deal.bt_regist)){
+			System.out.println("´­¸®³Ä");
+			showContent(1);
 		}
 	}
 	

@@ -58,13 +58,22 @@ create sequence seq_user
 start with 1
 increment by 1;
 
+--시퀀스 추가 (지불수단, 할인수단)
+create sequence seq_discounttype
+start with 1
+increment by 1;
+
+create sequence seq_paytype
+start with 1
+increment by 1;
+
+
 --table 생성
 create table deal(
 deal_id number primary key
 ,company_id number
 ,deal_money number default 0
 ,paid_money number default 0
-,income_date varchar(50)
 ,deal_date varchar(50)
 ,regdate date default sysdate
 );
@@ -115,6 +124,9 @@ sale_id number primary key
 ,sale_date varchar(50)
 ,sale_time varchar(50)
 ,user_id number
+,payment number default 0
+,paytype_id number
+,discounttype_id number
 ,regdate date default sysdate
 );
 
@@ -142,10 +154,26 @@ user_id number primary key
 ,regdate date default sysdate
 );
 
+--할인수단 지불수단 추가
+create table paytype(
+paytype_id number primary key
+,pay_name varchar2(50)
+,regdate date default sysdate
+);
+
+create table discounttype(
+discounttype_id number primary key
+,discount_card varchar(50)
+,discount_rate number default 0
+,regdate date default sysdate
+);
+
+
 commit;
 
 
 
+--기타 쿼리문 참조사항
 
 --기타 테이블 조회
 select table_name from user_tables;
@@ -161,6 +189,9 @@ drop table sale;
 drop table saledetail;
 drop table inventory;
 drop table pos_user;
+
+--시퀀스삭제
+drop sequence  seq_topcategory;
 
 --deal table에 항목 추가
 
@@ -178,11 +209,15 @@ values (seq_sale.nextval, 40000, '6/17','2:50',3);
 insert into SALE(Sale_ID, TOTAL_MONEY, SALE_DATE, SALE_TIME, USER_ID)
 values (seq_sale.nextval, 68000, '6/17','8:59',2);
 
+--sale 테이블 항목 추가
+
+alter table sale add payment number DEFAULT 0;
+alter table sale add paytype_id number;
+alter table sale add discounttype_id number;
 
 
-
-
-
+--조인문
+select sale_id,total_money,sale_date,sale_time, p.user_name as name from sale s,pos_user p where s.user_id = p.user_id
 
 
 
