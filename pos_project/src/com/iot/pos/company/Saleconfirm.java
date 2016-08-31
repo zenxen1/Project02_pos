@@ -5,15 +5,8 @@ import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -26,11 +19,12 @@ public class Saleconfirm extends JPanel{
 	JScrollPane scroll;
 	SaleconfirmModel model;
 	
+	/*
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String user = "posman";
 	String password = "posman";
-	
-	Connection con;
+	*/
+	//Connection con;
 	
 	
 	
@@ -49,11 +43,11 @@ public class Saleconfirm extends JPanel{
 		ch.add("월매출");
 		ch.add("년매출");
 		
-		connect();
-		table = new JTable(model = new SaleconfirmModel(con));
+		//connect();
+		table = new JTable(model = new SaleconfirmModel());
 		scroll = new JScrollPane(table);
 		
-		p_center.setLayout(new FlowLayout());
+		//p_center.setLayout(new FlowLayout());
 		
 		la_north.setPreferredSize(new Dimension(800, 100));
 		p_south.setPreferredSize(new Dimension(900, 50));
@@ -99,6 +93,7 @@ public class Saleconfirm extends JPanel{
 		//setVisible(true);
 			
 	}
+	/*
 	public void connect(){
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -111,7 +106,7 @@ public class Saleconfirm extends JPanel{
 			e.printStackTrace();
 		}
 	}
-	
+	*/
 	/*
 	public static void main(String[] args) {
 		new Saleconfirm();

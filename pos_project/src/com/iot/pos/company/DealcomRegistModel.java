@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.swing.AbstractListModel;
 import javax.swing.table.AbstractTableModel;
 
 public class DealcomRegistModel extends AbstractTableModel {
@@ -25,8 +24,9 @@ public class DealcomRegistModel extends AbstractTableModel {
 	}
 	
 	public void selectAll(){
-		String sql = "select * from company";
 		try {
+			//Connection con = PosMain.getConnection();
+			String sql = "select * from company";
 			pstmt = con.prepareStatement(sql);
 			rs  = pstmt.executeQuery();
 			
@@ -63,6 +63,7 @@ public class DealcomRegistModel extends AbstractTableModel {
 	}
 	
 	public int deleteCompany(int company_id){
+		//Connection con = PosMain.getConnection();
 		int result =0;
 		String sql = "delete from company where company_id ="+company_id;
 		try {

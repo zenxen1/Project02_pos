@@ -10,20 +10,21 @@ import javax.swing.table.AbstractTableModel;
 
 public class SaleconfirmModel extends AbstractTableModel{
 	String[] columTitle = {"ID","토탈거래금액","판매일","판매시간","직원"};
-	Connection con;
+	//Connection con;
 	PreparedStatement pstmt;
 	ResultSet rs;
 	
 	ArrayList<String[]> data = new ArrayList<String[]>(); 
 	
-	public SaleconfirmModel(Connection con) {
-		this.con = con;
+	public SaleconfirmModel() {
+		//this.con = con;
 		selectAll();
 	}
 	
 	public void selectAll(){
 		String sql = "select sale_id,total_money,sale_date,sale_time, p.user_name as name from sale s,pos_user p where s.user_id = p.user_id";
 		try {
+			Connection con = PosMain.getConnection();
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
