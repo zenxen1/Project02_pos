@@ -76,7 +76,7 @@ public class DealcomListModel extends AbstractTableModel{
 	}
 
 	public int getRowCount() {
-		return data.size();
+		return 3;
 	}
 
 	public Object getValueAt(int row, int col) {

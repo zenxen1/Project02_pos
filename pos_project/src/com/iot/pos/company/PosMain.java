@@ -16,7 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class PosMain extends JFrame implements ActionListener{
-	String[] menuTitle ={"매출관리","업체등록","업체조회"};
+	String[] menuTitle ={"거래내역","매출관리","업체등록"};
 	JButton[] menu;
 	JPanel p_north;
 	JPanel[] content;
@@ -48,9 +48,9 @@ public class PosMain extends JFrame implements ActionListener{
 		}
 		deal.bt_regist.addActionListener(this);
 		
-		content[0] = new Saleconfirm();
+		content[2] = new Saleconfirm();
 		content[1] = new DealcomRegist();
-		content[2] = deal;
+		content[0] = deal;
 		
 		
 		
