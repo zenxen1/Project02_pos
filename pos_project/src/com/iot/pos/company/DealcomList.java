@@ -10,9 +10,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -37,8 +39,11 @@ public class DealcomList extends JPanel implements ActionListener {
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String user = "posman";
 	String password = "posman";
+	
+	HashMap<String, Integer> productMap;
+	HashMap<String, Integer> companyMap;
 
-	Connection con;
+	//Connection con;
 
 	public DealcomList() {
 		p_north = new JPanel();
@@ -53,9 +58,9 @@ public class DealcomList extends JPanel implements ActionListener {
 
 		// 입력구성
 		ch_product = new Choice();
-		ch_product.add("▼거래업체선택");
+		ch_product.add("▼상품선택");
 		ch_company = new Choice();
-		ch_company.add("▼상품선택");
+		ch_company.add("▼거래업체선택");
 		tf_dealid = new JTextField(5);
 		tf_dealdetailcount = new JTextField("0", 10);
 		tf_dealmoney = new JTextField("0", 10);
@@ -93,12 +98,12 @@ public class DealcomList extends JPanel implements ActionListener {
 		p_detailinput.add(scroll_detailinput);
 		p_detailinput.add(la_dealid);
 		p_detailinput.add(tf_dealid);
-		p_detailinput.add(ch_company);
+		p_detailinput.add(ch_product);
 		p_detailinput.add(la_dealdetailcount);
 		p_detailinput.add(tf_dealdetailcount);
 		p_detailinput.add(bt_productregist);
 		
-		p_input.add(ch_product);
+		p_input.add(ch_company);
 		p_input.add(la_dealmoney);
 		p_input.add(tf_dealmoney);
 		p_input.add(la_paidmoney);
@@ -122,6 +127,7 @@ public class DealcomList extends JPanel implements ActionListener {
 		add(p_center);
 		
 		bt_companyregist.addActionListener(this);
+		bt_productregist.addActionListener(this);
 
 		/*
 		 * addWindowListener(new WindowAdapter() { public void
@@ -133,11 +139,52 @@ public class DealcomList extends JPanel implements ActionListener {
 		// setSize(1024, 960);
 		// setResizable(false);
 		// setVisible(true);
+		productMap = new HashMap<String,Integer>();
+		companyMap = new HashMap<String,Integer>();
+		
+		getProduct();
 		getCompany();
 	}
 	
+	public void getProduct(){
+		Connection con = PosMain.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select * from topcategory";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				ch_product.add(rs.getString("topgroup"));
+				productMap.put(rs.getString("topgroup"), rs.getInt("topcategory_id"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			if(rs!=null){
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(pstmt!=null){
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	}
+	
 	public void getCompany(){
-		System.out.println("실행되냐?");
+		
 		Connection con = PosMain.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -147,7 +194,8 @@ public class DealcomList extends JPanel implements ActionListener {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()){
-				ch_product.add(rs.getString("company_name"));
+				ch_company.add(rs.getString("company_name"));
+				companyMap.put(rs.getString("company_name"), rs.getInt("company_id"));
 			}
 			
 		} catch (SQLException e) {
@@ -173,23 +221,83 @@ public class DealcomList extends JPanel implements ActionListener {
 		
 		
 	}
-	
-	public void comProductRegist(){
+	public void comDealDetail(){
+		Connection con = PosMain.getConnection();
+		PreparedStatement pstmt = null;
+		String sql= "insert into dealdetail (DEALDETAIL_ID, DEAL_ID, PRODUCT_ID, DEALDETAIL_COUNT)";
+		sql = sql + " values (seq_dealdetail.nextval, ?,?,?)";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, tf_dealid.getText());
+			pstmt.setInt(2, productMap.get(ch_product.getSelectedItem()));
+			pstmt.setInt(3, Integer.parseInt(tf_dealdetailcount.getText()));
+			
+			
+			int result = pstmt.executeUpdate();
+			if(result !=0){
+				JOptionPane.showMessageDialog(this, "등록완료");
+			}
+			model1.selectAll();
+			model1.fireTableDataChanged();
+			table_detailinput.updateUI();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
 		
 	}
 	
-	public void companyRegist(){
+	public void comDeal(){
+		Connection con = PosMain.getConnection();
+		PreparedStatement pstmt=null;
+		String sql = "insert into deal (DEAL_ID, COMPANY_ID, DEAL_MONEY, PAID_MONEY, DEAL_DATE)";
+		sql = sql + " values (seq_deal.nextval,?,?,?,?)";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, companyMap.get(ch_company.getSelectedItem()));
+			pstmt.setInt(2, Integer.parseInt(tf_dealmoney.getText()));
+			pstmt.setInt(3, Integer.parseInt(tf_paidmoney.getText()));
+			pstmt.setString(4, tf_dealdate.getText());
+			
+			int result = pstmt.executeUpdate();
+			if(result !=0){
+				JOptionPane.showMessageDialog(this, "등록완료");
+			}
+			model.selectAll();
+			model.fireTableDataChanged();
+			table.updateUI();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		
 	}
+	
+	
 
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
-		if(obj.equals(bt_companyregist)){
-			companyRegist();
-		}
 		if(obj.equals(bt_productregist)){
-			comProductRegist();
+			comDealDetail();
 		}
+		if(obj.equals(bt_companyregist)){
+			comDeal();
+		}
+		
 	}
 
 	/*

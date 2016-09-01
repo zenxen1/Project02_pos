@@ -10,7 +10,7 @@ import javax.swing.table.AbstractTableModel;
 
 public class DealcomListModel extends AbstractTableModel{
 	
-	String[] columTitle ={"NO","거래업체","매입금","지불금","거래일자"};
+	String[] columTitle ={"deal_id","거래업체","매입금","지불금","거래일자"};
 	
 	ArrayList<String[]>data = new ArrayList<String[]>();
 	
@@ -76,7 +76,7 @@ public class DealcomListModel extends AbstractTableModel{
 	}
 
 	public int getRowCount() {
-		return 3;
+		return data.size();
 	}
 
 	public Object getValueAt(int row, int col) {

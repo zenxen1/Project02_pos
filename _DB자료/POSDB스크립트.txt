@@ -219,6 +219,21 @@ alter table sale add discounttype_id number;
 --조인문
 select sale_id,total_money,sale_date,sale_time, p.user_name as name from sale s,pos_user p where s.user_id = p.user_id
 
+--topcategory 테이블 항목 추가
+insert into TOPCATEGORY (TOPCATEGORY_ID, TOPGROUP)
+values (seq_topcategory.nextval,'간편식사');
+insert into TOPCATEGORY (TOPCATEGORY_ID, TOPGROUP)
+values (seq_topcategory.nextval,'즉석요리');
+insert into TOPCATEGORY (TOPCATEGORY_ID, TOPGROUP)
+values (seq_topcategory.nextval,'스낵류');
+insert into TOPCATEGORY (TOPCATEGORY_ID, TOPGROUP)
+values (seq_topcategory.nextval,'아이스크림');
+insert into TOPCATEGORY (TOPCATEGORY_ID, TOPGROUP)
+values (seq_topcategory.nextval,'식품');
+insert into TOPCATEGORY (TOPCATEGORY_ID, TOPGROUP)
+values (seq_topcategory.nextval,'음료');
+insert into TOPCATEGORY (TOPCATEGORY_ID, TOPGROUP)
+values (seq_topcategory.nextval,'생활용품');
 
 
 
