@@ -42,7 +42,8 @@ public class DealcomList extends JPanel implements ActionListener {
 	
 	HashMap<String, Integer> productMap;
 	HashMap<String, Integer> companyMap;
-
+	
+	int maxdealid;
 	//Connection con;
 
 	public DealcomList() {
@@ -221,40 +222,6 @@ public class DealcomList extends JPanel implements ActionListener {
 		
 		
 	}
-	public void comDealDetail(){
-		Connection con = PosMain.getConnection();
-		PreparedStatement pstmt = null;
-		String sql= "insert into dealdetail (DEALDETAIL_ID, DEAL_ID, PRODUCT_ID, DEALDETAIL_COUNT)";
-		sql = sql + " values (seq_dealdetail.nextval, ?,?,?)";
-		
-		try {
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, tf_dealid.getText());
-			pstmt.setInt(2, productMap.get(ch_product.getSelectedItem()));
-			pstmt.setInt(3, Integer.parseInt(tf_dealdetailcount.getText()));
-			
-			
-			int result = pstmt.executeUpdate();
-			if(result !=0){
-				JOptionPane.showMessageDialog(this, "등록완료");
-			}
-			model1.selectAll();
-			model1.fireTableDataChanged();
-			table_detailinput.updateUI();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally{
-			try {
-				pstmt.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		
-		
-	}
 	
 	public void comDeal(){
 		Connection con = PosMain.getConnection();
@@ -284,8 +251,73 @@ public class DealcomList extends JPanel implements ActionListener {
 				e.printStackTrace();
 			}
 		}
+		maxdealid();
 		
 	}
+	//deal_id max 값을 추출하자
+	public void maxdealid(){
+		Connection con = PosMain.getConnection();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		String sql = "select max(deal_id) from deal";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				maxdealid = rs.getInt("max(deal_id)");
+			}
+			System.out.println(Integer.toString(maxdealid));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	public void comDealDetail(){
+		Connection con = PosMain.getConnection();
+		PreparedStatement pstmt = null;
+		System.out.println(Integer.toString(maxdealid));
+		String sql= "insert into dealdetail (DEALDETAIL_ID, DEAL_ID, PRODUCT_ID, DEALDETAIL_COUNT)";
+		sql = sql + " values (seq_dealdetail.nextval, ?,?,?)";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, maxdealid);
+			pstmt.setInt(2, productMap.get(ch_product.getSelectedItem()));
+			pstmt.setInt(3, Integer.parseInt(tf_dealdetailcount.getText()));
+			
+			
+			int result = pstmt.executeUpdate();
+			if(result !=0){
+				JOptionPane.showMessageDialog(this, "등록완료");
+			}
+			model1.selectAll();
+			model1.fireTableDataChanged();
+			table_detailinput.updateUI();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
+	}
+	
+	
 	
 	
 

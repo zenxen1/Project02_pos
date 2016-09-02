@@ -42,7 +42,7 @@ public class DealcomListModel extends AbstractTableModel{
 				record[3] = Integer.toString(rs.getInt("paid_money"));
 				record[4] = rs.getString("deal_date");
 				
-				System.out.println(con);
+				//System.out.println(con);
 				data.add(record);
 			}
 			
