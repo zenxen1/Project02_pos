@@ -1,58 +1,45 @@
 package com.iot.pos.pcs88pc;
 
 import java.awt.BorderLayout;
-import java.awt.Button;
+import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-public class SaleDeskTop_Center extends JPanel {
-	
-	JPanel p, p1;
-	JLabel la_name;
-	JButton bt;
-	CenterTableModel model;
+public class SaleDeskTop_Center extends JPanel{
+	CenterModel model;
+	JPanel center;
+	JTable table;
 	JScrollPane scroll;
+	CenterGrid grid;
+	
 	
 	public SaleDeskTop_Center(){
-		
-		setLayout(new BorderLayout());
-		
-		p = new JPanel();
-		p1 = new JPanel();
-		la_name = new JLabel("자주쓰는 목록");
-		bt = new JButton("편집");
-		
-		JTable table = new JTable(model=new CenterTableModel());
-		p.add(table,BorderLayout.WEST);
-		p.setPreferredSize(new Dimension(400,500));
+		center = new JPanel(new BorderLayout());
+		table = new JTable(model=new CenterModel());
 		scroll = new JScrollPane(table);
 		
-		add(p);
+		scroll.setPreferredSize(new Dimension(540, 450));
+		table.setRowHeight(50);
 		
-		setLayout(new GridLayout(3,3));
-		Button[] bt_product = new Button[9];
+		grid = new CenterGrid();
 		
-		for(int i=0; i<bt_product.length; i++){
-			bt_product[i]=new Button("상품 \n품목");
-			bt_product[i].setPreferredSize(new Dimension(100,100));
-			p1.add(bt_product[i],BorderLayout.EAST);
-			
-			
-		}
+		center.setPreferredSize(new Dimension(550, 450));
+		grid.setPreferredSize(new Dimension(400, 450));
 		
+		center.add(scroll);
 		
-	
+		add(center);
+		add(grid);
+		
+		setBackground(Color.RED);
+		
+		setVisible(true);
+		setSize(1000,600);
 		
 	}
 	
-	public static void main(String[] args){
-		new SaleDeskTop_Center();
-	}
+
 }

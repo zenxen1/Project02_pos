@@ -11,7 +11,7 @@ import javax.swing.table.AbstractTableModel;
 import com.iot.pos.PosMain;
 
 public class SaleconfirmModel extends AbstractTableModel{
-	String[] columTitle = {"ID","토탈거래금액","판매일","판매시간","직원","지불금액","지불수단","할인수단"};
+	String[] columTitle = {"ID","토탈거래금액","판매일","판매시간","직원","지불금액","지불수단","할인수단","regdata"};
 	//Connection con;
 	PreparedStatement pstmt;
 	ResultSet rs;
@@ -24,7 +24,7 @@ public class SaleconfirmModel extends AbstractTableModel{
 	}
 	
 	public void selectAll(){
-		String sql = "select sale_id,total_money,sale_date,sale_time, p.user_name as name,payment, t.pay_name as payname, d.discount_card as discount";
+		String sql = "select sale_id,total_money,sale_date,sale_time, p.user_name as name,payment, t.pay_name as payname, d.discount_card as discount, s.regdate";
 		sql = sql + " from sale s,pos_user p, paytype t, discounttype d where s.user_id = p.user_id and s.paytype_id = t.paytype_id and s.discounttype_id = d.discounttype_id order by sale_id asc";
 		//System.out.println(sql);
 		try {
@@ -42,7 +42,7 @@ public class SaleconfirmModel extends AbstractTableModel{
 				record[5] = Integer.toString(rs.getInt("payment"));
 				record[6] = rs.getString("payname");
 				record[7] = rs.getString("discount");
-				
+				record[8] = rs.getString("regdate");				
 				
 				data.add(record);
 			}

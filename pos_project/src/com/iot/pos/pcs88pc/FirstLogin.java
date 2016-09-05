@@ -6,14 +6,22 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class FirstLogin extends JFrame implements ActionListener{
+import com.iot.pos.PosMain;
+
+public class FirstLogin extends JPanel implements ActionListener{
 	
 	JPanel p_center;
 	JLabel la_number, la_company, la_id, la_pw;
@@ -21,16 +29,27 @@ public class FirstLogin extends JFrame implements ActionListener{
 	JButton bt;
 	Dimension dim;
 	Dimension dim2;
+	
+	String url="jdbc:oracle:thin:@localhost:1521:XE";
+	String user="posman";
+	String password="posman";
+	
+	Connection con;
+	PreparedStatement pstmt;
+	ResultSet rs;
+	
 	public FirstLogin(){
-		setLayout(new FlowLayout(FlowLayout.CENTER,180,300));
+		//DB접속 성공 
+		//ConnectDB();
+		setLayout(new FlowLayout(FlowLayout.LEFT,180,300));
 		p_center = new JPanel();
 		//p_center.setLayout(null);
-		la_number = new JLabel("사업자 등록번호 :");
+		//la_number = new JLabel("사업자 등록번호 :");
 		la_company = new JLabel("IOT Pos Project Team");
 		la_id = new JLabel("ID");
 		la_pw = new JLabel("Pw");
 		
-		t_number = new JTextField(20);
+		//t_number = new JTextField(20);
 		t_id = new JTextField(20);
 		t_pw = new JTextField(20);
 		
@@ -38,10 +57,10 @@ public class FirstLogin extends JFrame implements ActionListener{
 		dim = new Dimension(120, 30);
 		dim2 = new Dimension(260, 30);
 		la_company.setPreferredSize(new Dimension(380, 50));
-		la_number.setPreferredSize(dim);
+		//la_number.setPreferredSize(dim);
 		la_id.setPreferredSize(dim);
 		la_pw.setPreferredSize(dim);
-		t_number.setPreferredSize(dim2);
+		//t_number.setPreferredSize(dim2);
 		t_id.setPreferredSize(dim2);
 		t_pw.setPreferredSize(dim2);
 		
@@ -59,8 +78,8 @@ public class FirstLogin extends JFrame implements ActionListener{
 		*/
 	
 		p_center.add(la_company);
-		p_center.add(la_number);
-		p_center.add(t_number);
+		//p_center.add(la_number);
+		//p_center.add(t_number);
 		
 		p_center.add(la_id);
 		p_center.add(t_id);
@@ -73,21 +92,66 @@ public class FirstLogin extends JFrame implements ActionListener{
 		
 		add(p_center);
 		
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+//		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(1024,960);
-		setResizable(false);
+//		setResizable(false);
 		setVisible(true);
 	}
-	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		System.out.println("로그인을 하였습니다.");
+/*
+	//DB접속
+	public void ConnectDB(){	
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+//			this.setTitle("접속성공");
+			con=DriverManager.getConnection(url, user, password);
+				if(con==null){
+				JOptionPane.showMessageDialog(this, "접속 실패!!");
+				return;
+			}
+//				this.setTitle("접속성공");
+		} catch (SQLException e){	
+			e.printStackTrace();
+		} catch (ClassNotFoundException e){
+			e.printStackTrace();
+		}
+	}
+*/
+	//로그인 하기 
+	public void PosUser(){
+			Connection con = PosMain.getConnection();
+		try {
+			
+			String sql="select * from pos_user where user_acount=? and user_password=?";
+			pstmt=con.prepareStatement(sql);
+			
+			//1번은 아이디 값 , 2번은 비밀번호 값으로 설정 
+			pstmt.setString(1, t_id.getText());  //제이슨이 아니여서 get으로 받아올 수 없다.
+			pstmt.setString(2, t_pw.getText());
 		
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()){
+				System.out.println("로그인 성공");
+				new FirstMain(); //로그인 성공시 메인화면으로 이동 
+//				dispose();
+			}else{
+				System.out.println("로그인 실패");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}   
 	}
 	
-	
+	public void actionPerformed(ActionEvent e) {
+		PosUser();
+		
+	}
+	/*
 	public static void main(String[] args) {
 		new FirstLogin();
 	}
+	*/
 
 }

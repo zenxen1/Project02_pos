@@ -13,28 +13,30 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
-public class ManagementWindow extends JFrame implements ActionListener{
-
+public class ManagementWindow extends JPanel implements ActionListener{
+	JPanel p_all;
 	JPanel p_center, p_east, p_north, p_west,p_south;
 	JPanel p_row1, p_row2;
-	JButton bt;
-	JButton[] bt_menu;
+	public JButton bt;
+	public JButton[] bt_menu;
 	JLabel la_north;
 	JLabel[] la;
 	String[] bt_title = {
-			"매출관리/확인",
-			"판매내역",
+			"매출관리(상품별)",
+			"매출관리(일자별)",
 			"거래내역",
+			"업체등록",
 			"상품정보",
-			"직원관리",
-			"재고관리"
+			"직원관리"
 			};
+	SalesManagement salesManagement;
 	
 	public ManagementWindow() {
-		
+		p_all = new JPanel();
 		bt = new JButton("메인화면");
-		bt_menu = new JButton[6];
+		bt_menu = new JButton[bt_title.length];
 		la_north = new JLabel("           ");
 		p_center = new JPanel();
 		p_east = new JPanel();
@@ -64,31 +66,25 @@ public class ManagementWindow extends JFrame implements ActionListener{
 	
 		p_row1.add(bt_menu[3]);
 		p_row1.add(bt_menu[4]);
-		p_row1.add(bt_menu[5]);
 		p_center.add(p_row1);
 		
 		p_row1.setPreferredSize(new Dimension(800, 250));
 			
 		bt.setPreferredSize(new Dimension(100, 50));
 			
-		la_north.setPreferredSize(new Dimension(850, 100));
+		la_north.setPreferredSize(new Dimension(850, 20));
 		p_north.add(la_north);
 		p_north.add(bt);
 		
-		add(p_center, BorderLayout.CENTER);
-		add(p_north, BorderLayout.NORTH);
-		add(p_east, BorderLayout.EAST);
-				
-		add(p_west, BorderLayout.WEST);
-		add(p_south, BorderLayout.SOUTH);
+		p_all.setLayout(new BorderLayout());
+		p_all.add(p_north, BorderLayout.NORTH);
+		p_all.add(p_center, BorderLayout.CENTER);
+		p_all.add(p_west, BorderLayout.WEST);
+		p_all.add(p_east, BorderLayout.EAST);
+		p_all.add(p_south, BorderLayout.SOUTH);
 		
-		
-		bt.addActionListener(this);
-		
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(1024, 768);
-		setVisible(true);
-		
+		add(p_all);
+		bt.addActionListener(this);		
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -97,6 +93,7 @@ public class ManagementWindow extends JFrame implements ActionListener{
 			System.out.println("메인화면");
 		}else if(obj == bt_menu[0]){
 			System.out.println("매출관리/확인");
+			salesManagement = new SalesManagement();
 		}else if(obj == bt_menu[1]){
 			System.out.println("판매내역");
 		}else if(obj == bt_menu[2]){
@@ -105,13 +102,7 @@ public class ManagementWindow extends JFrame implements ActionListener{
 			System.out.println("상품정보");
 		}else if(obj == bt_menu[4]){
 			System.out.println("직원관리");
-		}else if(obj == bt_menu[5]){
-			System.out.println("재고관리");
 		}
 	}
 	
-	public static void main(String[] args) {
-		new ManagementWindow();
-	}
-
 }

@@ -31,6 +31,7 @@ public class DealcomRegist extends JPanel implements ActionListener {
 	JScrollPane scroll;
 	JButton bt_regist, bt_delete;
 	DealcomRegistModel model;
+	public JButton bt_main;
 
 	/*
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
@@ -57,7 +58,7 @@ public class DealcomRegist extends JPanel implements ActionListener {
 
 		bt_regist = new JButton("등록");
 		bt_delete = new JButton("삭제");
-
+		bt_main = new JButton("메인화면");
 		//connect();
 		table = new JTable(model = new DealcomRegistModel(con));
 		scroll = new JScrollPane(table);
@@ -82,7 +83,7 @@ public class DealcomRegist extends JPanel implements ActionListener {
 		p_west.setBackground(Color.YELLOW);
 		p_north.setBackground(Color.BLUE);
 		
-
+		p_north.add(bt_main);
 		p_north.add(la_title);
 		p_west.add(la_company_name);
 		p_west.add(tf_company_name);

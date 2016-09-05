@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -22,6 +23,7 @@ public class Saleconfirm extends JPanel {
 	JTable table;
 	JScrollPane scroll;
 	SaleconfirmModel model;
+	public JButton bt_main;
 
 	/*
 	 * String url = "jdbc:oracle:thin:@localhost:1521:XE"; String user =
@@ -36,6 +38,7 @@ public class Saleconfirm extends JPanel {
 		p_east = new JPanel();
 		p_center = new JPanel();
 		p_graph = new JPanel();
+		bt_main = new JButton("메인화면");
 
 		la_north = new JLabel("매출확인(일일매출)");
 
@@ -65,6 +68,7 @@ public class Saleconfirm extends JPanel {
 		p_center.setPreferredSize(new Dimension(1000, 1000));
 
 		p_graph.add(gra);
+		p_north.add(bt_main);
 		p_north.add(la_north);
 		p_north.add(ch);
 

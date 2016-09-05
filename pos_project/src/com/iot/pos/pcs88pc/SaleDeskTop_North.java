@@ -9,14 +9,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class SaleDestTop_North extends JPanel{
+public class SaleDeskTop_North extends JPanel{
 
 	JPanel p_center;
 	JLabel la_sale;
 	JTextField tf_login, tf_watch;
-	JButton bt_login, bt_watch, bt_main;
+	JButton bt_login, bt_watch;
+	JButton bt_main;
 	
-	public SaleDestTop_North(){
+	public SaleDeskTop_North(){
 		setLayout(new BorderLayout());
 		
 		p_center = new JPanel();

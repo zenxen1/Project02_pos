@@ -34,6 +34,7 @@ public class DealcomList extends JPanel implements ActionListener, ItemListener 
 	JScrollPane scroll,scroll_detailinput;
 	DealcomListModel model;
 	DealcomListdetailModel model1;
+	public JButton bt_main;
 
 	// 입력구성
 	Choice ch_product, ch_company, ch_subcategory;
@@ -53,6 +54,7 @@ public class DealcomList extends JPanel implements ActionListener, ItemListener 
 	//Connection con;
 
 	public DealcomList() {
+		bt_main = new JButton("메인화면");
 		p_north = new JPanel();
 		p_center = new JPanel();
 		p_south = new JPanel();
@@ -122,6 +124,7 @@ public class DealcomList extends JPanel implements ActionListener, ItemListener 
 		p_input.add(tf_dealdate);
 		p_input.add(bt_companyregist);
 
+		p_north.add(bt_main);
 		p_north.add(ch);
 		p_north.add(tf_serch);
 		p_north.add(bt_serch);

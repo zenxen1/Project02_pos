@@ -12,14 +12,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class FirstMain extends JFrame implements ActionListener {
+//public class FirstMain extends JFrame implements ActionListener {
+	public class FirstMain extends JPanel implements ActionListener {
 
 	JPanel p_east, p_west;
-	JButton bt, bt1;
+	public JButton bt, bt1;
 	JLabel la_bt, la_bt1;
-	
+
 	public FirstMain(){
-		
+		System.out.println("FirstMain 클릭");
+
 		p_east = new JPanel();
 		p_west = new JPanel();
 		bt = new JButton("판매");
@@ -48,22 +50,21 @@ public class FirstMain extends JFrame implements ActionListener {
 		add(p_east);
 		add(p_west);
 		
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);
 		setSize(1024, 960);
-		
+		setVisible(true);
+		System.out.println("FirstMain 로드 완료");
+
 	}
-	
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("규뀨");
+		System.out.println("판매/관리 화면이 나옵니다!");
 	}
-	
-	
-	
-	
-	public static void main(String[] args) {
-		new FirstMain();
+	/*
+	public static void main(String[] args){
+		JFrame frame = new JFrame();
+		frame.add(new FirstMain());
 
+		frame.setSize(1024, 960);
+		frame.setVisible(true);
 	}
-
+	*/
 }
