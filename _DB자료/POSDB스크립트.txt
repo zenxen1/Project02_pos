@@ -95,7 +95,7 @@ company_id number primary key
 
 create table product(
 product_id number primary key
-,name varchar(50)
+,product_name varchar(50)
 ,barcode number default 0
 ,prime_cost number default 0
 ,selling_price number default 0
@@ -195,8 +195,8 @@ drop sequence  seq_topcategory;
 
 --deal table에 항목 추가
 
-insert into DEAL (DEAL_ID, COMPANY_ID, DEAL_MONEY, PAID_MONEY, INCOME_DATE, DEAL_DATE) 
-values (seq_deal.nextval, 1,9000,6770,'10/24','11/30');
+insert into DEAL (DEAL_ID, COMPANY_ID, DEAL_MONEY, PAID_MONEY,DEAL_DATE) 
+values (seq_deal.nextval, 1,9000,6770,'11/30');
 
 
 --sale 테이블에 항목 추가
@@ -235,12 +235,419 @@ values (seq_topcategory.nextval,'음료');
 insert into TOPCATEGORY (TOPCATEGORY_ID, TOPGROUP)
 values (seq_topcategory.nextval,'생활용품');
 
+drop table topcategory;
+drop sequence seq_topcategory;
+drop table subcategory;
+drop sequence seq_subcategory;
+drop table product;
+drop sequence seq_product;
+
+create table topcategory(
+topcategory_id number primary key
+, topgroup varchar2(30)
+);
+
+create sequence seq_topcategory
+start with 1
+increment by 1;
+
+insert into topcategory(topcategory_id, topgroup)
+values(seq_topcategory.nextval, '간편식사');
+
+insert into topcategory(topcategory_id, topgroup)
+values(seq_topcategory.nextval, '즉석요리');
+
+insert into topcategory(topcategory_id, topgroup)
+values(seq_topcategory.nextval, '스낵류');
+
+insert into topcategory(topcategory_id, topgroup)
+values(seq_topcategory.nextval, '아이스크림');
+
+insert into topcategory(topcategory_id, topgroup)
+values(seq_topcategory.nextval, '식품');
+
+insert into topcategory(topcategory_id, topgroup)
+values(seq_topcategory.nextval, '음료');
+
+insert into topcategory(topcategory_id, topgroup)
+values(seq_topcategory.nextval, '생활용품');
+
+ create table subcategory(
+ subcategory_id number primary key
+ , topcategory_id number
+ , subgroup varchar2(30)
+ );
+
+create sequence seq_subcategory
+start with 1
+increment by 1;
 
 
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 1, '도시락');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 1, '샌드위치/햄버거');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 1, '주먹밥/김밥');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 2, '베이커리');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 2, '튀김');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 3, '스낵/비스킷');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 3, '캔디/초콜릿');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 4, '아이스크림');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 5, '가공제품');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 5, '안주류');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 6, '음료');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 6, '주류');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 6, '유제품');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 6, '아이스컵제품');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 7, '취미/레저');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 7, '의약품');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 7, '신변잡화');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 7, '생활잡화');
+
+create table product(
+product_id number primary key
+, subcategory_id number
+, product_name varchar2(30)
+, barcode varchar2(30)
+, prime_cost number default 0
+, selling_price number default 0
+, manufacturer varchar2(30)
+, expiration_date varchar2(30)
+);
+
+create sequence seq_product
+start with 1
+increment by 1;
 
 
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 1, '백종원의 엄마도시락', '888786861', 2500, 3000, '백가네', '2016/09/07');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 2, '참치치즈샌드위치', '888786862', 1500, 2000, 'CU', '2016/09/07');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 3, '참치김밥', '888786863', 1000, 1500, 'CU', '2016/09/07');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 4, '보름달 빵', '888786864', 300, 700, '삼림', '2016/09/07');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 5, '치킨', '888786865', 3000, 4000, '하림', '2016/09/10');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 6, '새우깡', '888786866', 500, 1000, '농심', '2017/09/07');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 7, '박하사탕', '888786867', 1000, 1500, '롯데', '2017/09/07');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 8, '메로나', '888786868', 300, 700, '빙그레', '2016/09/07');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 9, '죽', '888786869', 2000, 2500, '풀무원', '2016/10/30');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 9, '신라면', '888786861', 2500, 3000, '백가네', '2016/09/07');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 10, '미니족발', '888786871', 3000, 5000, 'CU', '2016/09/10');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 10, '깐풍기', '888786872', 3000, 6000, 'CU', '2016/09/10');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 11, '마운틴듀', '888786873', 300, 700, '코카콜라', '2018/09/07');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 12, '참이슬', '888786874', 1000, 1300, '진로', '2018/09/07');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 12, '카스', '888786875', 1100, 1600, '오비맥주', '2018/09/07');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 12, '서울막걸리', '888786876', 800, 1000, '국순당', '2016/09/20');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 13, '불가리스', '888786877', 700, 1000, '남양', '2016/09/15');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 13, '바나나우유', '888786878', 1000, 1300, '빙그레', '2016/09/15');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 14, '얼음컵', '888786879', 200, 500, 'CU', '2016/10/07');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 15, '이어폰', '888786880', 6500, 9000, '아이리버', 'unlimited');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 16, '후시딘', '888786881', 2500, 3000, '동화약품', '2018/09/07');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 17, '양말', '888786882', 700, 1000, 'CU', 'unlimited');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 18, '물티슈', '888786883', 1000, 1500, 'CU', 'unlimited');
+
+----------------------------------------------------------------------------------
+--탑, 서브, 상품 테이블 채운거
+
+drop table topcategory;
+drop sequence seq_topcategory;
+drop table subcategory;
+drop sequence seq_subcategory;
+drop table product;
+drop sequence seq_product;
+
+create table topcategory(
+topcategory_id number primary key
+, topgroup varchar2(30)
+);
+
+create sequence seq_topcategory
+start with 1
+increment by 1;
+
+insert into topcategory(topcategory_id, topgroup)
+values(seq_topcategory.nextval, '간편식사');
+
+insert into topcategory(topcategory_id, topgroup)
+values(seq_topcategory.nextval, '즉석요리');
+
+insert into topcategory(topcategory_id, topgroup)
+values(seq_topcategory.nextval, '스낵류');
+
+insert into topcategory(topcategory_id, topgroup)
+values(seq_topcategory.nextval, '아이스크림');
+
+insert into topcategory(topcategory_id, topgroup)
+values(seq_topcategory.nextval, '식품');
+
+insert into topcategory(topcategory_id, topgroup)
+values(seq_topcategory.nextval, '음료');
+
+insert into topcategory(topcategory_id, topgroup)
+values(seq_topcategory.nextval, '생활용품');
+
+ create table subcategory(
+ subcategory_id number primary key
+ , topcategory_id number
+ , subgroup varchar2(30)
+ );
+
+create sequence seq_subcategory
+start with 1
+increment by 1;
 
 
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 1, '도시락');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 1, '샌드위치/햄버거');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 1, '주먹밥/김밥');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 2, '베이커리');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 2, '튀김');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 3, '스낵/비스킷');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 3, '캔디/초콜릿');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 4, '아이스크림');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 5, '가공제품');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 5, '안주류');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 6, '음료');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 6, '주류');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 6, '유제품');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 6, '아이스컵제품');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 7, '취미/레저');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 7, '의약품');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 7, '신변잡화');
+
+insert into subcategory(subcategory_id, topcategory_id, subgroup)
+values (seq_subcategory.nextval, 7, '생활잡화');
+
+create table product(
+product_id number primary key
+, subcategory_id number
+, product_name varchar2(30)
+, barcode varchar2(30)
+, prime_cost number default 0
+, selling_price number default 0
+, manufacturer varchar2(30)
+, expiration_date varchar2(30)
+);
+
+create sequence seq_product
+start with 1
+increment by 1;
+
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 1, '백종원의 엄마도시락', '888786861', 2500, 3000, '백가네', '2016/09/07');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 2, '참치치즈샌드위치', '888786862', 1500, 2000, 'CU', '2016/09/07');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 3, '참치김밥', '888786863', 1000, 1500, 'CU', '2016/09/07');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 4, '보름달 빵', '888786864', 300, 700, '삼림', '2016/09/07');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 5, '치킨', '888786865', 3000, 4000, '하림', '2016/09/10');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 6, '새우깡', '888786866', 500, 1000, '농심', '2017/09/07');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 7, '박하사탕', '888786867', 1000, 1500, '롯데', '2017/09/07');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 8, '메로나', '888786868', 300, 700, '빙그레', '2016/09/07');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 9, '죽', '888786869', 2000, 2500, '풀무원', '2016/10/30');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 9, '신라면', '888786861', 2500, 3000, '백가네', '2016/09/07');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 10, '미니족발', '888786871', 3000, 5000, 'CU', '2016/09/10');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 10, '깐풍기', '888786872', 3000, 6000, 'CU', '2016/09/10');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 11, '마운틴듀', '888786873', 300, 700, '코카콜라', '2018/09/07');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 12, '참이슬', '888786874', 1000, 1300, '진로', '2018/09/07');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 12, '카스', '888786875', 1100, 1600, '오비맥주', '2018/09/07');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 12, '서울막걸리', '888786876', 800, 1000, '국순당', '2016/09/20');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 13, '불가리스', '888786877', 700, 1000, '남양', '2016/09/15');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 13, '바나나우유', '888786878', 1000, 1300, '빙그레', '2016/09/15');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 14, '얼음컵', '888786879', 200, 500, 'CU', '2016/10/07');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 15, '이어폰', '888786880', 6500, 9000, '아이리버', 'unlimited');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 16, '후시딘', '888786881', 2500, 3000, '동화약품', '2018/09/07');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 17, '양말', '888786882', 700, 1000, 'CU', 'unlimited');
+
+insert into product(product_id, subcategory_id, product_name, barcode, prime_cost, selling_price, manufacturer, expiration_date)
+values (seq_product.nextval, 18, '물티슈', '888786883', 1000, 1500, 'CU', 'unlimited');
+
+--상품판매상세 레코드 임의 추가
+insert into SALEDETAIL (SALEDETAIL_ID, SALE_ID, PRODUCT_ID, SALE_COUNT)
+values (seq_saledetail.nextval,1,1,30); 
+
+insert into SALEDETAIL (SALEDETAIL_ID, SALE_ID, PRODUCT_ID, SALE_COUNT)
+values (seq_saledetail.nextval,1,2,40);
+
+insert into SALEDETAIL (SALEDETAIL_ID, SALE_ID, PRODUCT_ID, SALE_COUNT)
+values (seq_saledetail.nextval,1,5,30);
+
+insert into SALEDETAIL (SALEDETAIL_ID, SALE_ID, PRODUCT_ID, SALE_COUNT)
+values (seq_saledetail.nextval,2,1,10);
+
+insert into SALEDETAIL (SALEDETAIL_ID, SALE_ID, PRODUCT_ID, SALE_COUNT)
+values (seq_saledetail.nextval,2,2,40);
+
+insert into SALEDETAIL (SALEDETAIL_ID, SALE_ID, PRODUCT_ID, SALE_COUNT)
+values (seq_saledetail.nextval,3,1,100);
+
+--지불수단 레코드 추가
+insert into PAYTYPE (PAYTYPE_ID, PAY_NAME)
+values (seq_paytype.nextval, '카드');
+
+insert into PAYTYPE (PAYTYPE_ID, PAY_NAME)
+values (seq_paytype.nextval, '현금');
+
+--할인수단
+INSERT INTO DISCOUNTTYPE (DISCOUNTTYPE_ID, DISCOUNT_CARD, DISCOUNT_RATE)
+VALUES (seq_discounttype.nextval, 'KT멤버쉽카드', 15);
+	 
+INSERT INTO DISCOUNTTYPE (DISCOUNTTYPE_ID, DISCOUNT_CARD, DISCOUNT_RATE)
+VALUES (seq_discounttype.nextval, 'SK텔레콤', 20);
+INSERT INTO DISCOUNTTYPE (DISCOUNTTYPE_ID, DISCOUNT_CARD, DISCOUNT_RATE)
+VALUES (seq_discounttype.nextval, 'LG유플러스', 10);
+INSERT INTO DISCOUNTTYPE (DISCOUNTTYPE_ID, DISCOUNT_CARD, DISCOUNT_RATE)
+VALUES (seq_discounttype.nextval, '해당없음', 0);
 
 
 

@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Paint;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
@@ -36,8 +37,10 @@ import org.jfree.ui.TextAnchor;
  * with a line chart.
  */
 public class PolylineBarChart extends JPanel{
- 
-      
+	ArrayList<String[]> data = new ArrayList<String[]>(); 
+	ArrayList <Integer>totalmoney = new ArrayList<Integer>();
+	ArrayList <String>saledate = new ArrayList<String>();
+    
        // Run As > Java Application 으로 실행하면 바로 확인할 수 있음.
 	/*
     public static void main(final String[] args) {
@@ -48,31 +51,49 @@ public class PolylineBarChart extends JPanel{
              frame1.setVisible(true);
     }
    */
+	public PolylineBarChart(ArrayList<String[]> data) {
+		this.data = data;
+		totalmoney.removeAll(totalmoney);
+		saledate.removeAll(saledate);
+		for(int i =0;i<data.size();i++){
+			String[] record = (data.get(i));
+			totalmoney.add(Integer.parseInt(record[1]));
+			saledate.add(record[2]);
+		}
+	}
+	
     public JFreeChart getChart() {
-      
+    	
         // 데이터 생성
         DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();                // bar chart 1
         DefaultCategoryDataset dataset12 = new DefaultCategoryDataset();         // bar chart 2
         DefaultCategoryDataset dataset2 = new DefaultCategoryDataset();                // line chart 1
  
         // 데이터 입력 ( 값, 범례, 카테고리 )
-        // 그래프 1       
-        dataset1.addValue(1.0, "S1", "1월");
-        dataset1.addValue(4.0, "S1", "2월");
-        dataset1.addValue(3.0, "S1", "3월");
-        dataset1.addValue(5.0, "S1", "4월");
-        dataset1.addValue(5.0, "S1", "5월");
-        dataset1.addValue(7.0, "S1", "6월");
-        dataset1.addValue(7.0, "S1", "7월");
-        dataset1.addValue(8.0, "S1", "8월");
-        dataset1.addValue(0, "S1", "9월");
-        dataset1.addValue(0, "S1", "10월");
-        dataset1.addValue(0, "S1", "11월");
-        dataset1.addValue(0, "S1", "12월");
- 
+        // 그래프 1
+        for(int i=0;i<data.size();i++){
+        	dataset1.addValue(totalmoney.get(i), "토탈거래금액", saledate.get(i));
+        	 dataset2.addValue(totalmoney.get(i), "토탈거래금액", saledate.get(i));
+        }
+        /*
+        dataset1.addValue(54444, "토탈거래금액", "1월");
+        dataset1.addValue(54444, "토탈거래금액", "2월");
+        dataset1.addValue(54444, "토탈거래금액", "3월");
+        dataset1.addValue(54444, "토탈거래금액", "4월");
+        dataset1.addValue(54444, "토탈거래금액", "5월");
+        dataset1.addValue(54444, "토탈거래금액", "6월");
+        
+        dataset1.addValue(0, "토탈거래금액", "7월");
+        dataset1.addValue(0, "토탈거래금액", "8월");
+        dataset1.addValue(0, "토탈거래금액", "9월");
+        dataset1.addValue(0, "토탈거래금액", "10월");
+        dataset1.addValue(0, "토탈거래금액", "11월");
+        dataset1.addValue(0, "토탈거래금액", "12월");
+ 		/*
+        /*
         // 그래프 2       
         dataset12.addValue(0, "S2", "1월");
-        dataset12.addValue(0, "S2", "2월");
+        dataset12.addValue(6, "S2", "2월");
         dataset12.addValue(0, "S2", "3월");
         dataset12.addValue(0, "S2", "4월");
         dataset12.addValue(0, "S2", "5월");
@@ -97,7 +118,7 @@ public class PolylineBarChart extends JPanel{
         dataset2.addValue(8.0, "T1", "10월");
         dataset2.addValue(8.0, "T1", "11월");
         dataset2.addValue(8.0, "T1", "12월");
- 
+ 		*/
         // 렌더링 생성 및 세팅
         // 렌더링 생성
         final BarRenderer renderer = new BarRenderer();

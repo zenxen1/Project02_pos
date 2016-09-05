@@ -6,6 +6,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,18 +22,21 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-public class DealcomList extends JPanel implements ActionListener {
+import com.iot.pos.PosMain;
+
+public class DealcomList extends JPanel implements ActionListener, ItemListener {
 	JPanel p_north, p_center, p_input, p_detailinput, p_south;
 	Choice ch;
 	JTextField tf_serch;
-	JButton bt_serch, bt_regist;
+	JButton bt_serch;
+	public JButton bt_regist;
 	JTable table, table_detailinput;
 	JScrollPane scroll,scroll_detailinput;
 	DealcomListModel model;
 	DealcomListdetailModel model1;
 
 	// 입력구성
-	Choice ch_product, ch_company;
+	Choice ch_product, ch_company, ch_subcategory;
 	JTextField tf_dealid,tf_dealdetailcount, tf_dealmoney, tf_paidmoney, tf_dealdate;
 	JLabel la_dealdetailcount, la_dealmoney, la_paidmoney, la_dealdate, la_dealid;
 	JButton bt_productregist, bt_companyregist;
@@ -42,6 +47,7 @@ public class DealcomList extends JPanel implements ActionListener {
 	
 	HashMap<String, Integer> productMap;
 	HashMap<String, Integer> companyMap;
+	HashMap<String, Integer> subcategoryMap;
 	
 	int maxdealid;
 	//Connection con;
@@ -60,6 +66,8 @@ public class DealcomList extends JPanel implements ActionListener {
 		// 입력구성
 		ch_product = new Choice();
 		ch_product.add("▼상품선택");
+		ch_subcategory = new Choice();
+		ch_subcategory.add("▼상품선택");
 		ch_company = new Choice();
 		ch_company.add("▼거래업체선택");
 		tf_dealid = new JTextField(5);
@@ -78,7 +86,7 @@ public class DealcomList extends JPanel implements ActionListener {
 		// connect();
 		table = new JTable(model = new DealcomListModel());
 		scroll = new JScrollPane(table);
-		table_detailinput = new JTable(model1 = new DealcomListdetailModel());
+		table_detailinput = new JTable(model1 = new DealcomListdetailModel(maxdealid));
 		scroll_detailinput = new JScrollPane(table_detailinput);
 
 		// p_center.setLayout(new FlowLayout());
@@ -93,13 +101,14 @@ public class DealcomList extends JPanel implements ActionListener {
 		p_detailinput.setBackground(Color.BLUE);
 		p_input.setBackground(Color.YELLOW);
 
-		ch.add("분류");
+		ch.add("거래업체");
 
 		// 입력연결
 		p_detailinput.add(scroll_detailinput);
-		p_detailinput.add(la_dealid);
-		p_detailinput.add(tf_dealid);
+		//p_detailinput.add(la_dealid);
+		//p_detailinput.add(tf_dealid);
 		p_detailinput.add(ch_product);
+		p_detailinput.add(ch_subcategory);
 		p_detailinput.add(la_dealdetailcount);
 		p_detailinput.add(tf_dealdetailcount);
 		p_detailinput.add(bt_productregist);
@@ -129,6 +138,8 @@ public class DealcomList extends JPanel implements ActionListener {
 		
 		bt_companyregist.addActionListener(this);
 		bt_productregist.addActionListener(this);
+		ch_product.addItemListener(this);
+		bt_serch.addActionListener(this);
 
 		/*
 		 * addWindowListener(new WindowAdapter() { public void
@@ -142,6 +153,7 @@ public class DealcomList extends JPanel implements ActionListener {
 		// setVisible(true);
 		productMap = new HashMap<String,Integer>();
 		companyMap = new HashMap<String,Integer>();
+		subcategoryMap = new HashMap<String,Integer>();
 		
 		getProduct();
 		getCompany();
@@ -182,6 +194,45 @@ public class DealcomList extends JPanel implements ActionListener {
 			}
 		}
 		
+	}
+	
+	public void getSubcategory(int topcategory){
+		Connection con = PosMain.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "select * from subcategory where topcategory_id = "+topcategory+"";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			ch_subcategory.removeAll();
+			subcategoryMap.clear();
+			
+			while(rs.next()){
+				ch_subcategory.add(rs.getString("subgroup"));
+				subcategoryMap.put(rs.getString("subgroup"), rs.getInt("subcategory_id"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			if(rs!=null){
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(pstmt!=null){
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 	
 	public void getCompany(){
@@ -291,7 +342,7 @@ public class DealcomList extends JPanel implements ActionListener {
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, maxdealid);
-			pstmt.setInt(2, productMap.get(ch_product.getSelectedItem()));
+			pstmt.setInt(2, subcategoryMap.get(ch_subcategory.getSelectedItem()));
 			pstmt.setInt(3, Integer.parseInt(tf_dealdetailcount.getText()));
 			
 			
@@ -299,7 +350,7 @@ public class DealcomList extends JPanel implements ActionListener {
 			if(result !=0){
 				JOptionPane.showMessageDialog(this, "등록완료");
 			}
-			model1.selectAll();
+			model1.selectAll(maxdealid);
 			model1.fireTableDataChanged();
 			table_detailinput.updateUI();
 		} catch (SQLException e) {
@@ -312,12 +363,13 @@ public class DealcomList extends JPanel implements ActionListener {
 				e.printStackTrace();
 			}
 		}
-		
-		
-		
 	}
 	
 	
+	public void itemStateChanged(ItemEvent e) {
+		
+		getSubcategory(productMap.get(ch_product.getSelectedItem()));
+	}
 	
 	
 
@@ -328,6 +380,13 @@ public class DealcomList extends JPanel implements ActionListener {
 		}
 		if(obj.equals(bt_companyregist)){
 			comDeal();
+		}
+		if(obj.equals(bt_serch)){
+			
+			model.getSerch(tf_serch.getText());
+			model.fireTableDataChanged();
+			table.updateUI();
+			System.out.println("누렀어?");
 		}
 		
 	}

@@ -21,6 +21,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import com.iot.pos.PosMain;
+
 public class DealcomRegist extends JPanel implements ActionListener {
 	JPanel p_west, p_north;
 	JLabel la_title, la_company_name, la_company_phone;

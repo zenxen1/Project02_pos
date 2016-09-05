@@ -50,11 +50,11 @@ public class Saleconfirm extends JPanel {
 
 		// p_center.setLayout(new FlowLayout());
 		// chart
-		PolylineBarChart demo = new PolylineBarChart();
+		PolylineBarChart demo = new PolylineBarChart(model.data);
 		JFreeChart chart = demo.getChart();
 		ChartPanel gra = new ChartPanel(chart);
 		//ChartFrame frame1 = new ChartFrame("Bar Chart", chart);
-		gra.setPreferredSize(new Dimension(800, 300));
+		gra.setPreferredSize(new Dimension(900, 340));
 		// frame1.setVisible(true);
 
 		la_north.setPreferredSize(new Dimension(800, 100));

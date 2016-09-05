@@ -8,21 +8,26 @@ import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
+import com.iot.pos.PosMain;
+
 public class DealcomListdetailModel extends AbstractTableModel{
 	String[] columTilte = {"dealdetail_id","거래내역","상품정보","수량"}; 
 	
 	ArrayList<String[]> list = new ArrayList<String[]>();
+	int maxdealid;
 	
-	public DealcomListdetailModel() {
-		selectAll();
+	public DealcomListdetailModel(int maxdealid) {
+		this.maxdealid = maxdealid;
+		//selectAll(maxdealid);
 	}
 
-	public void selectAll(){
+	public void selectAll(int maxdealid){
 		Connection con = PosMain.getConnection();
 		PreparedStatement pstmt=null;
 		ResultSet rs = null;
-		String sql = "select * from dealdetail order by deal_id desc";
-		
+		//String sql = "select * from dealdetail where deal_id = "+maxdealid+" order by deal_id desc";
+		String sql = "select dealdetail_id, deal_id, s.subgroup as uuuu, dealdetail_count from dealdetail d, subcategory s where deal_id = "+maxdealid+" and d.product_id = s.subCATEGORY_ID order by deal_id desc";
+		//System.out.println(sql);
 		
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -34,7 +39,7 @@ public class DealcomListdetailModel extends AbstractTableModel{
 				String[] record = new String[columTilte.length];
 				record[0] = Integer.toString(rs.getInt("dealdetail_id"));
 				record[1] = Integer.toString(rs.getInt("deal_id"));
-				record[2] = Integer.toString(rs.getInt("product_id"));
+				record[2] = rs.getString("uuuu");
 				record[3] = Integer.toString(rs.getInt("dealdetail_count"));
 				
 				list.add(record);
