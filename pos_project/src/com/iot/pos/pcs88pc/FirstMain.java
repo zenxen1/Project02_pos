@@ -20,8 +20,7 @@ import javax.swing.JPanel;
 	JLabel la_bt, la_bt1;
 
 	public FirstMain(){
-		System.out.println("FirstMain 클릭");
-
+		
 		p_east = new JPanel();
 		p_west = new JPanel();
 		bt = new JButton("판매");

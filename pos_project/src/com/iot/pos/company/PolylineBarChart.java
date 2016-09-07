@@ -3,13 +3,10 @@ package com.iot.pos.company;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.GradientPaint;
-import java.awt.Paint;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
@@ -22,14 +19,8 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.DatasetRenderingOrder;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
-import org.jfree.chart.renderer.category.StandardBarPainter;
-import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.GradientPaintTransformType;
-import org.jfree.ui.HorizontalAlignment;
-import org.jfree.ui.StandardGradientPaintTransformer;
 import org.jfree.ui.TextAnchor;
  
 /**
@@ -40,6 +31,7 @@ public class PolylineBarChart extends JPanel{
 	ArrayList<String[]> data = new ArrayList<String[]>(); 
 	ArrayList <Integer>totalmoney = new ArrayList<Integer>();
 	ArrayList <String>saledate = new ArrayList<String>();
+	DefaultCategoryDataset dataset1;
     
        // Run As > Java Application 으로 실행하면 바로 확인할 수 있음.
 	/*
@@ -51,30 +43,38 @@ public class PolylineBarChart extends JPanel{
              frame1.setVisible(true);
     }
    */
-	public PolylineBarChart(ArrayList<String[]> data) {
+	public PolylineBarChart() {
+		setData(data);
+		dataChange();
+	}
+	public void setData(ArrayList<String[]> data) {
 		this.data = data;
+		System.out.println("ggggg"+data.size());
 		totalmoney.removeAll(totalmoney);
 		saledate.removeAll(saledate);
 		for(int i =0;i<data.size();i++){
-			String[] record = (data.get(i));
+			String[] record = data.get(i);
+			System.out.println(i);
 			totalmoney.add(Integer.parseInt(record[1]));
 			saledate.add(record[2]);
 		}
+
 	}
 	
     public JFreeChart getChart() {
-    	
+    	System.out.println("호출했냐?");
         // 데이터 생성
-        DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();                // bar chart 1
-        DefaultCategoryDataset dataset12 = new DefaultCategoryDataset();         // bar chart 2
-        DefaultCategoryDataset dataset2 = new DefaultCategoryDataset();                // line chart 1
+        dataset1 = new DefaultCategoryDataset();                // bar chart 1
+        dataChange();
  
         // 데이터 입력 ( 값, 범례, 카테고리 )
         // 그래프 1
-        for(int i=0;i<data.size();i++){
-        	dataset1.addValue(totalmoney.get(i), "토탈거래금액", saledate.get(i));
-        	 dataset2.addValue(totalmoney.get(i), "토탈거래금액", saledate.get(i));
+        
+        /*
+        for(int i=0;i<100;i++){
+        	dataset1.addValue(54444, "토탈거래금액", i+"월");
         }
+        */
         /*
         dataset1.addValue(54444, "토탈거래금액", "1월");
         dataset1.addValue(54444, "토탈거래금액", "2월");
@@ -177,10 +177,10 @@ public class PolylineBarChart extends JPanel{
         // plot 에 데이터 적재
         plot.setDataset(dataset1);
         plot.setRenderer(renderer);
-        plot.setDataset(1,dataset12);
-        plot.setRenderer(1,renderer12);
-        plot.setDataset(2, dataset2);
-        plot.setRenderer(2, renderer2);
+       // plot.setDataset(1,dataset12);
+       // plot.setRenderer(1,renderer12);
+       // plot.setDataset(2, dataset2);
+       // plot.setRenderer(2, renderer2);
  
         // plot 기본 설정
         plot.setOrientation(PlotOrientation.VERTICAL);             // 그래프 표시 방향
@@ -208,4 +208,10 @@ public class PolylineBarChart extends JPanel{
         return chart;
     }
  
+    public void dataChange(){
+    	for(int i=0;i<data.size();i++){
+        	dataset1.addValue(totalmoney.get(i), "토탈거래금액", saledate.get(i));
+        	// dataset2.addValue(totalmoney.get(i), "토탈거래금액", saledate.get(i));
+        }
+    }
 }

@@ -3,13 +3,15 @@ package com.iot.pos.pcs88pc;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class SaleDeskTop_North extends JPanel{
+public class SaleDeskTop_North extends JPanel implements ActionListener{
 
 	JPanel p_center;
 	JLabel la_sale;
@@ -24,7 +26,7 @@ public class SaleDeskTop_North extends JPanel{
 		la_sale = new JLabel("판매화면");
 		tf_login = new JTextField(15);
 		tf_watch = new JTextField(15);
-		bt_login = new JButton("로그인한사람");
+		bt_login = new JButton("로그인 한 사람");
 		bt_watch = new JButton("시계");
 		bt_main = new JButton("메인화면");
 		
@@ -38,6 +40,11 @@ public class SaleDeskTop_North extends JPanel{
 		p_center.add(tf_watch);
 		p_center.setPreferredSize(new Dimension(300, 100));
 		add(p_center);
+		
+	}
+
+	//눌렀을시 로그인 한 사람 나오게하기
+	public void actionPerformed(ActionEvent e) {
 		
 	}
 }

@@ -3,12 +3,19 @@ package com.iot.pos.pcs88pc;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 
-public class SaleDeskTop_Center extends JPanel{
+import com.iot.pos.PosMain;
+
+public class SaleDeskTop_Center extends JPanel implements TableModelListener{
+	Connection con = PosMain.getConnection(); 
 	CenterModel model;
 	JPanel center;
 	JTable table;
@@ -40,6 +47,21 @@ public class SaleDeskTop_Center extends JPanel{
 		setSize(1000,600);
 		
 	}
-	
 
+	/*public void tableUpdate(){
+		PreparedStatement pstmt=null;
+		
+		int row=table.getSelectedRow();
+		int col=0;
+		String product_id=(String)table.getValueAt(row, col); 
+		
+		String sql="update product set product_name=?,price=?,stock=?,detail=?";
+		sql=sql+" where product_id=?";
+	}
+	
+	@Override
+	public void tableChanged(TableModelEvent e) {
+		
+	}
+*/
 }

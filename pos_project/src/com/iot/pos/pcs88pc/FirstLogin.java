@@ -22,13 +22,13 @@ import javax.swing.JTextField;
 import com.iot.pos.PosMain;
 
 public class FirstLogin extends JPanel implements ActionListener{
-	
 	JPanel p_center;
 	JLabel la_number, la_company, la_id, la_pw;
 	JTextField t_number, t_id, t_pw;
 	JButton bt;
 	Dimension dim;
 	Dimension dim2;
+	PosMain main;
 	
 	String url="jdbc:oracle:thin:@localhost:1521:XE";
 	String user="posman";
@@ -38,9 +38,9 @@ public class FirstLogin extends JPanel implements ActionListener{
 	PreparedStatement pstmt;
 	ResultSet rs;
 	
-	public FirstLogin(){
-		//DB접속 성공 
-		//ConnectDB();
+	public FirstLogin(PosMain main){
+		this.main = main;
+	
 		setLayout(new FlowLayout(FlowLayout.LEFT,180,300));
 		p_center = new JPanel();
 		//p_center.setLayout(null);
@@ -87,35 +87,36 @@ public class FirstLogin extends JPanel implements ActionListener{
 		p_center.add(t_pw);
 		p_center.add(bt);
 		
+		//로그인버튼 연결
 		bt.addActionListener(this);
-		
 		
 		add(p_center);
 		
-//		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(EXIT_ON_CLOSE);
+		//setResizable(false);
 		setSize(1024,960);
-//		setResizable(false);
 		setVisible(true);
 	}
-/*
+	/*
 	//DB접속
 	public void ConnectDB(){	
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-//			this.setTitle("접속성공");
+			this.setTitle("접속성공");
 			con=DriverManager.getConnection(url, user, password);
 				if(con==null){
 				JOptionPane.showMessageDialog(this, "접속 실패!!");
 				return;
 			}
-//				this.setTitle("접속성공");
+				this.setTitle("접속성공");
 		} catch (SQLException e){	
 			e.printStackTrace();
 		} catch (ClassNotFoundException e){
 			e.printStackTrace();
 		}
-	}
-*/
+	}	
+	*/
+	
 	//로그인 하기 
 	public void PosUser(){
 			Connection con = PosMain.getConnection();
@@ -132,8 +133,8 @@ public class FirstLogin extends JPanel implements ActionListener{
 			
 			if(rs.next()){
 				System.out.println("로그인 성공");
-				new FirstMain(); //로그인 성공시 메인화면으로 이동 
-//				dispose();
+				main.showContent(1); //로그인 성공시 메인화면으로 이동 
+				//dispose();
 			}else{
 				System.out.println("로그인 실패");
 			}
@@ -146,6 +147,7 @@ public class FirstLogin extends JPanel implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e) {
 		PosUser();
+		
 		
 	}
 	/*

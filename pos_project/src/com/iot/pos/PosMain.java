@@ -66,7 +66,7 @@ public class PosMain extends JFrame implements ActionListener{
 		p_north = new JPanel();
 		p_north.setLayout(new GridLayout(1, menu.length));
 		
-		firstLogin = new FirstLogin();
+		firstLogin = new FirstLogin(this);
 		firstMain = new FirstMain();
 		saledeskTop = new SaleDeskTop();
 		managementWindow = new ManagementWindow();
