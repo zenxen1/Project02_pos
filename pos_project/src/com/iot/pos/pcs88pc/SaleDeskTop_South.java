@@ -71,8 +71,8 @@ public class SaleDeskTop_South extends JPanel implements ItemListener, ActionLis
 		//p_sum = new JLabel("단가의 합이 나와야함.");
 		//p_discount = new JLabel("할인율이 나와야함.");
 		//p_result = new JLabel("단가x할인율");
-		bt_confirm = new JButton("확인");
-		bt_cancel = new JButton("취소");
+		bt_confirm = new JButton("결재완료");
+		bt_cancel = new JButton("결재취소");
 
 		discounttype = new Choice();
 		paytype = new Choice();

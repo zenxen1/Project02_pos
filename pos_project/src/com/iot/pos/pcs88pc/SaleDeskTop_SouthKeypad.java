@@ -13,7 +13,7 @@ public class SaleDeskTop_SouthKeypad extends JPanel implements ActionListener {
 	
 	JPanel p;
 	JButton bt[] = new JButton[10];
-	JButton equal, clear;
+	JButton enter, clear;
 	//JLabel label;
 	StringBuffer sb = new StringBuffer();
 	SaleDeskTop_South deskTop_South;
@@ -24,7 +24,7 @@ public class SaleDeskTop_SouthKeypad extends JPanel implements ActionListener {
 		setLayout(new BorderLayout());
 		p = new JPanel(new GridLayout(4,4,1,1));
 		//label = new JLabel("0",JLabel.RIGHT);
-		equal = new JButton("Enter");
+		enter = new JButton("Enter");
 		clear = new JButton("C");
 		
 		for(int i=0; i<bt.length; i++){
@@ -32,7 +32,7 @@ public class SaleDeskTop_SouthKeypad extends JPanel implements ActionListener {
 	
 		p.add(bt[i]);  
 		p.add(clear); 
-		p.add(equal);
+		p.add(enter);
 		
 		
 		//setBounds(200, 200, 300, 300);
@@ -97,8 +97,10 @@ public class SaleDeskTop_SouthKeypad extends JPanel implements ActionListener {
 		}else if(obj.equals(clear)){
 			
 			sb.delete(0, 20);
+		}else if(obj.equals(enter)){
+			
 		}
-		deskTop_South.tf_barcord.setText(sb.toString());
+		deskTop_South.tf_count.setText(sb.toString());
 		
 	}
 
