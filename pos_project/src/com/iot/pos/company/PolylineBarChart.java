@@ -49,12 +49,12 @@ public class PolylineBarChart extends JPanel{
 	}
 	public void setData(ArrayList<String[]> data) {
 		this.data = data;
-		System.out.println("ggggg"+data.size());
+		//System.out.println("ggggg"+data.size());
 		totalmoney.removeAll(totalmoney);
 		saledate.removeAll(saledate);
 		for(int i =0;i<data.size();i++){
 			String[] record = data.get(i);
-			System.out.println(i);
+			//System.out.println(i);
 			totalmoney.add(Integer.parseInt(record[1]));
 			saledate.add(record[2]);
 		}
@@ -62,7 +62,7 @@ public class PolylineBarChart extends JPanel{
 	}
 	
     public JFreeChart getChart() {
-    	System.out.println("호출했냐?");
+    	//System.out.println("호출했냐?");
         // 데이터 생성
         dataset1 = new DefaultCategoryDataset();                // bar chart 1
         dataChange();

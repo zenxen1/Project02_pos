@@ -9,12 +9,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-public class CenterGrid extends JPanel{
+public class SaleDeskTop_CenterGrid extends JPanel{
 	JPanel p_north, p_center;
 	JLabel la;
 	JButton bt;
 	
-	public CenterGrid(){
+	public SaleDeskTop_CenterGrid(){
 		setLayout(new BorderLayout());
 		p_north = new JPanel();
 		p_center = new JPanel();

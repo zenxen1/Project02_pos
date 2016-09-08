@@ -68,15 +68,15 @@ public class PosMain extends JFrame implements ActionListener{
 		
 		firstLogin = new FirstLogin(this);
 		firstMain = new FirstMain();
-		saledeskTop = new SaleDeskTop();
-		managementWindow = new ManagementWindow();
+		saledeskTop = new SaleDeskTop(firstLogin);
+		managementWindow = new ManagementWindow(this);
 		oftenUsedProduct = new OftenUsedProduct();
 		salesManagement = new SalesManagement();
 		dealcomList = new DealcomList();
 		saleconfirm = new Saleconfirm();
 		dealcomRegist = new DealcomRegist();
-		productInformation = new ProductInformation();
-		staffManagement = new StaffManagement();
+		productInformation = new ProductInformation(this);
+		staffManagement = new StaffManagement(this);
 		
 		for(int i=0;i<menu.length;i++){
 			menu[i] = new JButton(menuTitle[i]);
@@ -96,7 +96,7 @@ public class PosMain extends JFrame implements ActionListener{
 		dealcomList.bt_main.addActionListener(this);
 		dealcomRegist.bt_main.addActionListener(this);
 		saledeskTop.bt_main.addActionListener(this);
-		managementWindow.bt.addActionListener(this);
+		managementWindow.bt_main.addActionListener(this);
 		oftenUsedProduct.bt_main.addActionListener(this);
 		salesManagement.bt_main.addActionListener(this);
 		productInformation.bt_main.addActionListener(this);
@@ -168,6 +168,8 @@ public class PosMain extends JFrame implements ActionListener{
 		setSize(1024,960);
 		setVisible(true);
 		
+		
+		
 	}
 	
 	public void connectDB(){
@@ -175,7 +177,7 @@ public class PosMain extends JFrame implements ActionListener{
 			Class.forName(driver);
 			con=DriverManager.getConnection(url,user,password);
 			if(con != null){
-				setTitle("접속됨");
+				setTitle("오라클 접속 성공");
 			}else{
 				setTitle("접속실패");
 			}
@@ -187,6 +189,9 @@ public class PosMain extends JFrame implements ActionListener{
 		
 	}
 	public void showContent(int current){
+		if(firstLogin.loginname != null){
+			setTitle(firstLogin.loginname + "접속");
+		}
 		for(int i=0;i<menu.length;i++){
 			if(i==current){
 				content[i].setVisible(true);
@@ -216,7 +221,7 @@ public class PosMain extends JFrame implements ActionListener{
 		
 		//메인화면 보여주기
 		if(obj.equals(saleconfirm.bt_main)||obj.equals(dealcomList.bt_main)||obj.equals(dealcomRegist.bt_main)||obj.equals(saledeskTop.bt_main)
-				||obj.equals(managementWindow.bt)||obj.equals(oftenUsedProduct.bt_main)||obj.equals(salesManagement.bt_main)
+				||obj.equals(managementWindow.bt_main)||obj.equals(oftenUsedProduct.bt_main)||obj.equals(salesManagement.bt_main)
 				||obj.equals(productInformation.bt_main)||obj.equals(staffManagement.bt_main)){
 			showContent(1);//메인화면 보여주기
 		}

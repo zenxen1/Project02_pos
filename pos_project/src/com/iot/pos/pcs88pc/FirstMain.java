@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,39 +16,64 @@ import javax.swing.JPanel;
 //public class FirstMain extends JFrame implements ActionListener {
 	public class FirstMain extends JPanel implements ActionListener {
 
-	JPanel p_east, p_west;
 	public JButton bt, bt1;
-	JLabel la_bt, la_bt1;
+	JPanel p_east, p_west, p_center, p_north, p_south;
+	JLabel la_empty;
+	Font font;
+	
 
 	public FirstMain(){
 		
 		p_east = new JPanel();
 		p_west = new JPanel();
+		p_north = new JPanel();
+		p_south = new JPanel();
+		p_center = new JPanel();
+		
+		p_north.setPreferredSize(new Dimension(1024, 300));
+		p_south.setPreferredSize(new Dimension(1024, 200));
+		
+		//#패널에 색깔주기#
+		p_east.setBackground(new Color(123,182,212));
+		p_west.setBackground(new Color(123,182,212));
+		p_south.setBackground(new Color(123,182,212));
+		p_north.setBackground(new Color(123,182,212));
+		p_center.setBackground(new Color(123,182,212));
+		
+		
 		bt = new JButton("판매");
+		bt.setFont(new Font("맑은 고딕", Font.BOLD, 25));
+		bt.setForeground(Color.white);
+		bt.setBackground(new Color(160,206,222));
 		bt1 = new JButton("관리");
-		la_bt = new JLabel();
-		la_bt1 = new JLabel();
+		bt1.setFont(new Font("맑은 고딕", Font.BOLD, 25));
+		bt1.setForeground(Color.white);
+		bt1.setBackground(new Color(160,206,222));
 		
-		setLayout(new FlowLayout());
+		la_empty = new JLabel();
 		
-		p_east.add(bt);
-		p_east.add(la_bt);
-		p_west.add(bt1);
-		p_west.add(la_bt1);
+		setLayout(new BorderLayout());
 		
-		p_east.setBackground(Color.cyan);
-		p_west.setBackground(Color.cyan);
-		p_east.setPreferredSize(new Dimension(400, 400));
-		p_west.setPreferredSize(new Dimension(400, 400));
+		bt.setPreferredSize(new Dimension(200, 200));
+		bt1.setPreferredSize(new Dimension(200, 200));
 		
-		p_east.setBounds(10, 20, 150, 50);
-		p_west.setBounds(10, 20, 200, 50);
+		p_center.add(bt);
+		p_center.add(bt1);
 		
+		//bt.setBounds(10, 20, 150, 400);
+		//bt1.setBounds(10, 20, 200, 400);
+		
+		add(p_north, BorderLayout.NORTH);
+		add(p_south, BorderLayout.SOUTH);
+		add(p_east, BorderLayout.EAST);
+		add(p_west, BorderLayout.WEST);
+		
+		add(p_center);
+		
+		
+		// #버튼에 이벤트 연결#
 		bt.addActionListener(this);
 		bt1.addActionListener(this);
-		
-		add(p_east);
-		add(p_west);
 		
 		setSize(1024, 960);
 		setVisible(true);

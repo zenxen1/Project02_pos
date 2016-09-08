@@ -14,24 +14,24 @@ import javax.swing.event.TableModelListener;
 
 import com.iot.pos.PosMain;
 
-public class SaleDeskTop_Center extends JPanel implements TableModelListener{
+public class SaleDeskTop_Center extends JPanel{
 	Connection con = PosMain.getConnection(); 
-	CenterModel model;
+	SaleDeskTop_CenterModel model;
 	JPanel center;
 	JTable table;
 	JScrollPane scroll;
-	CenterGrid grid;
+	SaleDeskTop_CenterGrid grid;
 	
 	
 	public SaleDeskTop_Center(){
 		center = new JPanel(new BorderLayout());
-		table = new JTable(model=new CenterModel());
+		table = new JTable(model=new SaleDeskTop_CenterModel());
 		scroll = new JScrollPane(table);
 		
 		scroll.setPreferredSize(new Dimension(540, 450));
 		table.setRowHeight(50);
 		
-		grid = new CenterGrid();
+		grid = new SaleDeskTop_CenterGrid();
 		
 		center.setPreferredSize(new Dimension(550, 450));
 		grid.setPreferredSize(new Dimension(400, 450));
