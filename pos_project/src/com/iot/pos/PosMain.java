@@ -33,7 +33,7 @@ import com.sds.pos.koreain14.StaffManagement;
 public class PosMain extends JFrame implements ActionListener{
 	String[] menuTitle ={"로그인","메인화면","판매화면","관리화면","상품선택","매출관리1","매출관리2","거래내역","업체등록","상품정보","직원관리"};
 	JButton[] menu;
-	JPanel p_north;
+	JPanel p_north; 
 	JPanel[] content;
 	JPanel center;
 	
